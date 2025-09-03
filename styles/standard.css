@@ -10,6 +10,15 @@ body{
 a{
     text-decoration: none;
 }
+button{
+    cursor: pointer;
+}
+.wrapper{
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    background-image: linear-gradient(360deg, black, rgb(4 42 59));
+}
 
 @font-face {
     font-family: inter;
