@@ -19,10 +19,22 @@ header{
 .container_header{
     margin: 0 auto;
     max-width: 1440px;
-    padding: 8px 0px;
+    padding: 8px;
+    background-color: #FF8000;
+    display: flex;
+    justify-content: space-between;
 }
 .container_footer{
-    margin: 0 auto;
     max-width: 1440px;
+    height: 80px;
+    margin: 0 auto;
     padding: 0px 0px;
+    background-color: #1F1F1F;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 32px;
+}
+.logo_img{
+    height: 64px;
 }
