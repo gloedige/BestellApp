@@ -17,8 +17,10 @@ button{
 .second_img_container{
     height: 100px;
     width: 100%;
+    padding: 8px;
 }
 .third_img_container{
     height: 100px;
     width: 100%;
+    padding: 8px;
 }
