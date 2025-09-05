@@ -38,3 +38,9 @@ function highlightDish(dishId){
     document.getElementById(dishId).classList.toggle('light_orange_bg');
     
 }
+
+function addToBasket(dishId){
+    let singleDishObj = JSON.parse(localStorage.getItem(dishId));
+    let dishToBasketRef = document.getElementById('dishes_in_basket'); 
+    dishToBasketRef.innerHTML += renderSingleDishInBasket(singleDishObj);
+}
