@@ -10,3 +10,12 @@
     top: 8px;
     border: 2px solid;
 }
+.basket_headline{
+    display: flex;
+    justify-content: center;
+    padding: 16px;
+}
+.dividing_line{
+    height: 2px;
+    background-color: rgb(241, 241, 241);
+}
