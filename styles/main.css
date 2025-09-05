@@ -40,6 +40,9 @@ header{
 .main_img_container{
     height: 200px;
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 .name_container{
     height: 100px;
@@ -70,11 +73,22 @@ header{
     display: flex;
     justify-content: space-between;
     margin: 8px;
-    padding: 8px;
     border: 2px solid rgb(241, 241, 241);
 }
 .dish_attributes{
+    padding: 8px;
     display: flex;
     flex-direction: column;
     gap:8px
+}
+.all_dishes{
+    width: 100%;
+    height: auto;
+}
+.dish_price{
+    color:#FF8000;
+    font-weight:bold;
+}
+.light_orange_bg{
+    background-color: rgb(255,128,0,0.2);
 }
