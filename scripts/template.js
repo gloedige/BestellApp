@@ -6,7 +6,7 @@ function renderSingleDishSection(dishId, singleDishObj){
                 <p>${singleDishObj.description}</p>
                 <p class="dish_price">${(singleDishObj.price).toFixed(2)}€</p>
             </div>
-            <button class="dish_button" onclick="addToBasket(${dishId})">
+            <button class="dish_button" onclick="addToBasket('${dishId}')">
                 <img src="./assets/icons/add_60dp_FF8000.png" alt="add dish button">
             </button>
           </div>
