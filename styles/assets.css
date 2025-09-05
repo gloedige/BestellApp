@@ -11,12 +11,13 @@ button{
     object-fit: cover;
 }
 .restaurant_logo{
-    height: 110px;
+    height: 100px;
     width: 100px;
-    border-radius: 30px;
+    border-radius: 50px;
     position: absolute;
     background-color: white;
     top: calc(280px - 110px / 2);
+    border: 1px solid gray;
 }
 .second_img_container{
     height: 100px;
