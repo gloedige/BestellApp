@@ -24,3 +24,6 @@ button{
     width: 100%;
     padding: 8px;
 }
+.light_orange_bg{
+    background-color: rgb(255,128,0,0.3);
+}

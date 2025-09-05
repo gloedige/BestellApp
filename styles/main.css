@@ -66,3 +66,15 @@ header{
     height: 24px;
     margin: 8px;
 }
+.single_dish{
+    display: flex;
+    justify-content: space-between;
+    margin: 8px;
+    padding: 8px;
+    border: 2px solid rgb(241, 241, 241);
+}
+.dish_attributes{
+    display: flex;
+    flex-direction: column;
+    gap:8px
+}
