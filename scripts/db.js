@@ -1,7 +1,7 @@
 let allDishes=[
     {
-        "name": "Gebackenes Fischfilet nach Kim Kim Art (scharf)",
-        "description": "mit Gemüse und Knoblauch",
+        "name": "Gebackenes Fischfilet",
+        "description": "nach Kim Kim Art (scharf) mit Gemüse und Knoblauch",
         "price": 11.50,
         "quantity": 0
     },
