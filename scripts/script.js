@@ -27,7 +27,6 @@ function saveDishesInLocalStorage(){
 function loadAllDishes(){
     let allDishesRef = document.getElementById('all_dishes');
     Object.keys(localStorage).forEach(function(key){
-        console.log(key);
         dishId = key;
         let singleDishObj = JSON.parse(localStorage.getItem(key));        
         allDishesRef.innerHTML += renderSingleDishSection(dishId, singleDishObj); 
@@ -41,6 +40,42 @@ function highlightDish(dishId){
 
 function addToBasket(dishId){
     let singleDishObj = JSON.parse(localStorage.getItem(dishId));
-    let dishToBasketRef = document.getElementById('dishes_in_basket'); 
-    dishToBasketRef.innerHTML += renderSingleDishInBasket(singleDishObj);
+    setNewQuantity(singleDishObj);
+    if(!isDishExistentInBasket(singleDishObj.name)){      
+      let dishToBasketRef = document.getElementById('dishes_in_basket'); 
+      dishToBasketRef.innerHTML += renderSingleDishInBasket(singleDishObj);
+    }
+    else{
+      udpateQuantity(singleDishObj);
+    }
 }
+
+function toggleQuantityButtonImg(dishId){
+    document.getElementById(dishId).classList.toggle("d_none");
+}
+
+function setNewQuantity(singleDishObj){
+  singleDishObj.quantity = ++singleDishObj.quantity;
+  localStorage.setItem(singleDishObj.name, JSON.stringify(singleDishObj));
+}
+
+function isDishExistentInBasket(singleDishName){
+  let idInBasketRef = document.getElementById("basket:_"+singleDishName);
+  
+  if(idInBasketRef){
+    return true
+  }
+  else{
+    return false
+  }
+}
+
+function udpateQuantity(singleDishObj){
+  let singleDishQuantityRef = document.getElementById("quantity_of_single_dish:_"+singleDishObj.name);
+  // hier gehts weiter!!!
+}
+
+document.getElementById('dishes_in_basket').addEventListener("mouseover", function(event){
+  let button = event.target.closest('.button_basket');
+
+});
