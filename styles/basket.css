@@ -21,6 +21,8 @@
 }
 .container_price_and_quantity{
     display: flex;
+    align-items: center;
+    justify-content: space-around;
 }
 .button_basket{
     width: 30px;
@@ -45,4 +47,12 @@
 }
 .add_button:hover .add_circle_icon{
     display: block;
+}
+.quantity_of_single_dish{
+    width: 48px;
+    text-align: center;
+}
+.total_price_of_single_dish{
+    width: 80px;
+    text-align: center;
 }
