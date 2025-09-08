@@ -19,3 +19,30 @@
     height: 2px;
     background-color: rgb(241, 241, 241);
 }
+.container_price_and_quantity{
+    display: flex;
+}
+.button_basket{
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+}
+.remove_circle_icon.d_none{
+    display: none;
+}
+.remove_button:hover .remove_icon{
+    display: none;
+}
+.remove_button:hover .remove_circle_icon{
+    display: block;
+}
+.add_circle_icon.d_none{
+    display: none;
+}
+.add_button:hover .add_icon{
+    display: none;
+}
+.add_button:hover .add_circle_icon{
+    display: block;
+}
