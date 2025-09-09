@@ -59,6 +59,7 @@ function addToBasket(dishId){
       updateQuantityInBasket(singleDishObj);
     }
     increaseQuantity(singleDishObj.name);
+    totalPriceOfAllDishes();
 }
 
 function deleteFromBasket(singleDishObjName){
@@ -136,6 +137,23 @@ function getDishObjectByDishName(singleDishName){
 function totalPriceOfSingleDish(singleDishObj){
   let singlePriceRef = document.getElementById("total_price_of_single_dish:_"+singleDishObj.name);
   singlePriceRef.innerHTML = (singleDishObj.quantity * singleDishObj.price).toFixed(2)+"€";
+}
+
+function totalPriceOfAllDishes(){
+  let subtotalRef = document.getElementById('subtotal');
+  let divs = document.getElementById('dishes_in_basket').querySelectorAll('div');
+  let totalPriceRef = 0;
+  for (let index = 0; index < divs.length; index = index+2) {
+    let totalPriceSingleDish = divs[index].children[1].children[3].innerHTML;
+    totalPriceRef += parseInt(totalPriceSingleDish.replace("€", ""));
+    
+    
+    // let totalPriceRefhelp = document.getElementById("total_price_of_single_dish:_"+id);
+    // console.log(totalPriceRefhelp);
+    
+   }
+   subtotalRef.innerHTML = totalPriceRef.toFixed(2)+"€";
+
 }
 
 document.getElementById('dishes_in_basket').addEventListener("mouseover", function(event){
