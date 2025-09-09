@@ -39,24 +39,63 @@ function highlightDish(dishId){
 }
 
 function addToBasket(dishId){
-    let singleDishObj = JSON.parse(localStorage.getItem(dishId));
-    setNewQuantity(singleDishObj);
+    let singleDishObj = getDishObjectByDishName(dishId);
     if(!isDishExistentInBasket(singleDishObj.name)){      
       let dishToBasketRef = document.getElementById('dishes_in_basket'); 
       dishToBasketRef.innerHTML += renderSingleDishInBasket(singleDishObj);
     }
     else{
-      udpateQuantity(singleDishObj);
+      updateQuantityInBasket(singleDishObj);
     }
+    increaseQuantity(singleDishObj.name);
+}
+
+function deleteFromBasket(singleDishObjName){
+  document.getElementById("basket:_"+singleDishObjName).remove();
+  let dishId = singleDishObjName;
+  let singleDishObj = getDishObjectByDishName(dishId);
+  resetQuantityOfDishInLocalStorage(singleDishObj);
+}
+
+function resetQuantityOfDishInLocalStorage(singleDishObj){
+  singleDishObj.quantity = 0;
+  updateDisheInLocalStorage(singleDishObj);
 }
 
 function toggleQuantityButtonImg(dishId){
     document.getElementById(dishId).classList.toggle("d_none");
 }
 
-function setNewQuantity(singleDishObj){
-  singleDishObj.quantity = ++singleDishObj.quantity;
+function updateDisheInLocalStorage(singleDishObj){
   localStorage.setItem(singleDishObj.name, JSON.stringify(singleDishObj));
+}
+
+function increaseQuantity(singleDishName){
+  let singleDishObj = getDishObjectByDishName(singleDishName);
+  singleDishObj.quantity = parseInt(singleDishObj.quantity) + 1;
+  updateDisheInLocalStorage(singleDishObj);
+  updateQuantityInBasket(singleDishObj);
+}
+
+function reduceQuantity(singleDishName){
+  let singleDishObj = getDishObjectByDishName(singleDishName)
+  if(checkMiniumValueOfQuantity(singleDishObj)){
+    singleDishObj.quantity = parseInt(singleDishObj.quantity) - 1;
+    updateDisheInLocalStorage(singleDishObj);
+    updateQuantityInBasket(singleDishObj);
+  }
+  else{
+    deleteFromBasket(singleDishObj.name);
+  }
+}
+
+function checkMiniumValueOfQuantity(singleDishObj){
+  if(singleDishObj.quantity>1){
+    return true
+  }
+  else{
+    return false
+  }
 }
 
 function isDishExistentInBasket(singleDishName){
@@ -70,9 +109,15 @@ function isDishExistentInBasket(singleDishName){
   }
 }
 
-function udpateQuantity(singleDishObj){
+function updateQuantityInBasket(singleDishObj){
   let singleDishQuantityRef = document.getElementById("quantity_of_single_dish:_"+singleDishObj.name);
-  // hier gehts weiter!!!
+  singleDishQuantityRef.innerHTML = singleDishObj.quantity;
+}
+
+function getDishObjectByDishName(singleDishName){
+  let dishId = singleDishName;
+  let singleDishObj = JSON.parse(localStorage.getItem(dishId));
+  return singleDishObj
 }
 
 document.getElementById('dishes_in_basket').addEventListener("mouseover", function(event){
