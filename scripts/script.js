@@ -1,12 +1,23 @@
 let dishId = "";
+let invoiceArr =  [
+                  {"subtotal": 0},
+                  {"delivery_costs": 5},
+                  {"total_costs": 0}
+                  ];  
 
 function init(){
     if (localStorageIsCleared()){
         saveDishesInLocalStorage();
     }
     loadAllDishes();
-}
-
+    initInvoiceOfBasket();
+  }
+  
+function initInvoiceOfBasket(){}
+  let subtotalRef = invoiceArr[0].subtotal;
+  let deliveryCostsRef = invoiceArr[1].delivery_costs;
+  let totalCostsRef = invoiceArr[2].total_costs;
+  document.getElementById("dishes_invoice").innerHTML = renderInvoiceOfBasket(subtotalRef, deliveryCostsRef, totalCostsRef);
 
 function localStorageIsCleared() {
   if (localStorage.length!=0){
