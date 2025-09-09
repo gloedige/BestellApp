@@ -47,7 +47,7 @@ function renderInvoiceOfBasket(subtotalRef, deliveryCostsRef, totalCostsRef){
               <p>Lieferkosten</p>
               <p id="delivery_costs">${deliveryCostsRef.toFixed(2)}€</p>
           </div>
-          <div class="subtotal_basket">
+          <div class="total_basket subtotal_basket">
               <p>Gesamt</p>
               <p id="total_costs">${totalCostsRef.toFixed(2)}€</p>
           </div>
