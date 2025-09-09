@@ -29,6 +29,8 @@
     height: 30px;
     display: flex;
     justify-content: center;
+    background-color: white;
+    border: none;
 }
 .remove_circle_icon.d_none{
     display: none;
@@ -55,4 +57,12 @@
 .total_price_of_single_dish{
     width: 80px;
     text-align: center;
+}
+.dishes_in_basket{
+    min-height: 200px;
+    padding: 8px;
+}
+.dishname_basket{
+    font-weight: 600;
+    margin: 16px 0px;
 }
