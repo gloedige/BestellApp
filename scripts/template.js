@@ -35,5 +35,21 @@ function renderSingleDishInBasket(singleDishObj){
               </div>
           </div>
          `
+}
 
+function renderInvoiceOfBasket(subtotalRef, deliveryCostsRef, totalCostsRef){
+  return `
+          <div class="subtotal_basket">
+            <p>Zwischensumme</p>
+            <p id="subtotal">${subtotalRef.toFixed(2)}€</p>
+          </div>
+          <div class="subtotal_basket">
+              <p>Lieferkosten</p>
+              <p id="delivery_costs">${deliveryCostsRef.toFixed(2)}€</p>
+          </div>
+          <div class="subtotal_basket">
+              <p>Gesamt</p>
+              <p id="total_costs">${totalCostsRef.toFixed(2)}€</p>
+          </div>
+         `
 }
