@@ -37,19 +37,19 @@ function renderSingleDishInBasket(singleDishObj){
          `
 }
 
-function renderInvoiceOfBasket(subtotalRef, deliveryCostsRef, totalCostsRef){
+function renderInvoiceOfBasket(subtotal, deliveryCosts, totalCosts){
   return `
           <div class="subtotal_basket">
             <p>Zwischensumme</p>
-            <p id="subtotal">${subtotalRef.toFixed(2)}€</p>
+            <p id="subtotal">${subtotal.toFixed(2)}€</p>
           </div>
           <div class="subtotal_basket">
               <p>Lieferkosten</p>
-              <p id="delivery_costs">${deliveryCostsRef.toFixed(2)}€</p>
+              <p id="delivery_costs">${deliveryCosts.toFixed(2)}€</p>
           </div>
           <div class="total_basket subtotal_basket">
               <p>Gesamt</p>
-              <p id="total_costs">${totalCostsRef.toFixed(2)}€</p>
+              <p id="total_costs">${totalCosts.toFixed(2)}€</p>
           </div>
          `
 }
