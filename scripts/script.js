@@ -59,6 +59,7 @@ function deleteFromBasket(singleDishObjName){
   let dishId = singleDishObjName;
   let singleDishObj = getDishObjectByDishName(dishId);
   resetQuantityOfDishInLocalStorage(singleDishObj);
+  updateSubtotalDisplay();
 }
 
 function resetQuantityOfDishInLocalStorage(singleDishObj){
@@ -80,6 +81,7 @@ function increaseQuantity(singleDishName){
   updateDisheInLocalStorage(singleDishObj);
   updateQuantityInBasket(singleDishObj);
   totalPriceOfSingleDish(singleDishObj);
+  updateSubtotalDisplay();
 }
 
 function reduceQuantity(singleDishName){
@@ -89,6 +91,7 @@ function reduceQuantity(singleDishName){
     updateDisheInLocalStorage(singleDishObj);
     updateQuantityInBasket(singleDishObj);
     totalPriceOfSingleDish(singleDishObj);
+    updateSubtotalDisplay();
   }
   else{
     deleteFromBasket(singleDishObj.name);
@@ -131,6 +134,12 @@ function totalPriceOfSingleDish(singleDishObj){
   singlePriceRef.innerHTML = (singleDishObj.quantity * singleDishObj.price).toFixed(2)+"€";
 }
 
+function updateSubtotalDisplay(){
+ let subtotalRef = document.getElementById('subtotal');
+ let finalSum = calcTotalSum();
+ subtotalRef.innerHTML = finalSum.toFixed(2) + "€";
+}
+
 function calcTotalSum(){
   let allDishesArr = allItemsOfLocalStorage();
 
@@ -139,12 +148,6 @@ function calcTotalSum(){
   }, 0);
 
   return total;
-}
-
-function updateSubtotalDisplay(){
- let subtotalRef = document.getElementById('subtotal');
- let finalSum = calcTotalSum();
- subtotalRef.innerHTML = finalSum.toFixed(2) + "€";
 }
 
 function allItemsOfLocalStorage(){
