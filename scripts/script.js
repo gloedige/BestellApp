@@ -14,10 +14,10 @@ function init(){
   }
   
 function initInvoiceOfBasket(){}
-  let subtotalRef = invoiceArr[0].subtotal;
-  let deliveryCostsRef = invoiceArr[1].delivery_costs;
-  let totalCostsRef = invoiceArr[2].total_costs;
-  document.getElementById("dishes_invoice").innerHTML = renderInvoiceOfBasket(subtotalRef, deliveryCostsRef, totalCostsRef);
+  let subtotal = invoiceArr[0].subtotal;
+  let deliveryCosts = invoiceArr[1].delivery_costs;
+  let totalCosts = invoiceArr[2].total_costs;
+  document.getElementById("dishes_invoice").innerHTML = renderInvoiceOfBasket(subtotal, deliveryCosts, totalCosts);
 
 function localStorageIsCleared() {
   if (localStorage.length!=0){
@@ -59,7 +59,7 @@ function addToBasket(dishId){
       updateQuantityInBasket(singleDishObj);
     }
     increaseQuantity(singleDishObj.name);
-    totalPriceOfAllDishes();
+    updateSubtotalDisplay()
 }
 
 function deleteFromBasket(singleDishObjName){
@@ -139,21 +139,31 @@ function totalPriceOfSingleDish(singleDishObj){
   singlePriceRef.innerHTML = (singleDishObj.quantity * singleDishObj.price).toFixed(2)+"€";
 }
 
-function totalPriceOfAllDishes(){
-  let subtotalRef = document.getElementById('subtotal');
-  let divs = document.getElementById('dishes_in_basket').querySelectorAll('div');
-  let totalPriceRef = 0;
-  for (let index = 0; index < divs.length; index = index+2) {
-    let totalPriceSingleDish = divs[index].children[1].children[3].innerHTML;
-    totalPriceRef += parseInt(totalPriceSingleDish.replace("€", ""));
-    
-    
-    // let totalPriceRefhelp = document.getElementById("total_price_of_single_dish:_"+id);
-    // console.log(totalPriceRefhelp);
-    
-   }
-   subtotalRef.innerHTML = totalPriceRef.toFixed(2)+"€";
+function calcTotalSum(){
+  let allDishesArr = allItemsOfLocalStorage();
 
+  let total = allDishesArr.reduce((sum, dish) => {
+    return sum + (parseFloat(dish.price) * parseFloat(dish.quantity));
+  }, 0);
+
+  return total;
+}
+
+function updateSubtotalDisplay(){
+ let subtotalRef = document.getElementById('subtotal');
+ let finalSum = calcTotalSum();
+ subtotalRef.innerHTML = finalSum.toFixed(2) + "€";
+}
+
+function allItemsOfLocalStorage(){
+  let allDishesArr = [];
+
+  Object.keys(localStorage).forEach(function(key){
+    allDishesArr.push(JSON.parse(localStorage.getItem(key)));
+    });
+  console.table(allDishesArr);
+  
+  return allDishesArr
 }
 
 document.getElementById('dishes_in_basket').addEventListener("mouseover", function(event){
