@@ -48,6 +48,7 @@ function highlightDish(dishId){
 }
 
 function addToBasket(dishId){
+    resetOrderConfirmation();
     let singleDishObj = getDishObjectByDishName(dishId);
     if(!isDishExistentInBasket(singleDishObj.name)){      
       let dishToBasketRef = document.getElementById('dishes_in_basket'); 
@@ -166,7 +167,6 @@ function allItemsOfLocalStorage(){
   Object.keys(localStorage).forEach(function(key){
     allDishesArr.push(JSON.parse(localStorage.getItem(key)));
     });
-  console.table(allDishesArr);
   
   return allDishesArr
 }
@@ -181,6 +181,29 @@ function updateTotalDisplay(){
     let finalSum = subTotalSum + deliveryCosts;
     totalRef.innerHTML = finalSum.toFixed(2) + "€";
   }
+}
+
+function confirmOrder(){
+  let confirmMessage = document.getElementById('dishes_in_basket');
+  confirmMessage.innerHTML = renderOrderConfirmation();
+  initInvoiceOfBasket();
+  resetQuantityInLocalStorage();
+}
+
+function resetOrderConfirmation(){
+  let divToRemove = document.getElementById('confirmation_container'); 
+  if(divToRemove != null){
+    divToRemove.remove(); 
+  }
+}
+
+function resetQuantityInLocalStorage(){
+  Object.keys(localStorage).forEach(function(key){
+    let singleDishObj = JSON.parse(localStorage.getItem(key));
+    singleDishObj.quantity = 0;
+    console.log(singleDishObj);
+    updateDisheInLocalStorage(singleDishObj);
+    });
 }
 
 document.getElementById('dishes_in_basket').addEventListener("mouseover", function(event){
