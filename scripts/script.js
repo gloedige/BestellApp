@@ -167,8 +167,14 @@ function allItemsOfLocalStorage(){
 
 function updateTotalDisplay(){
   let totalRef = document.getElementById('total_costs');
-  let finalSum = calcTotalSum() + deliveryCosts;
-  totalRef.innerHTML = finalSum.toFixed(2) + "€";
+  let subTotalSum = calcTotalSum();
+  if(subTotalSum == 0){
+    totalRef.innerHTML = "0.00€";
+  }
+  else{
+    let finalSum = subTotalSum + deliveryCosts;
+    totalRef.innerHTML = finalSum.toFixed(2) + "€";
+  }
 }
 
 document.getElementById('dishes_in_basket').addEventListener("mouseover", function(event){
