@@ -51,7 +51,8 @@ function addToBasket(dishId){
       updateQuantityInBasket(singleDishObj);
     }
     increaseQuantity(singleDishObj.name);
-    updateSubtotalDisplay()
+    updateSubtotalDisplay();
+    updateTotalDisplay();
 }
 
 function deleteFromBasket(singleDishObjName){
@@ -60,6 +61,7 @@ function deleteFromBasket(singleDishObjName){
   let singleDishObj = getDishObjectByDishName(dishId);
   resetQuantityOfDishInLocalStorage(singleDishObj);
   updateSubtotalDisplay();
+  updateTotalDisplay();
 }
 
 function resetQuantityOfDishInLocalStorage(singleDishObj){
@@ -82,6 +84,7 @@ function increaseQuantity(singleDishName){
   updateQuantityInBasket(singleDishObj);
   totalPriceOfSingleDish(singleDishObj);
   updateSubtotalDisplay();
+  updateTotalDisplay();
 }
 
 function reduceQuantity(singleDishName){
@@ -92,6 +95,7 @@ function reduceQuantity(singleDishName){
     updateQuantityInBasket(singleDishObj);
     totalPriceOfSingleDish(singleDishObj);
     updateSubtotalDisplay();
+    updateTotalDisplay();
   }
   else{
     deleteFromBasket(singleDishObj.name);
@@ -159,6 +163,12 @@ function allItemsOfLocalStorage(){
   console.table(allDishesArr);
   
   return allDishesArr
+}
+
+function updateTotalDisplay(){
+  let totalRef = document.getElementById('total_costs');
+  let finalSum = calcTotalSum() + deliveryCosts;
+  totalRef.innerHTML = finalSum.toFixed(2) + "€";
 }
 
 document.getElementById('dishes_in_basket').addEventListener("mouseover", function(event){
