@@ -6,10 +6,8 @@ function init(){
     }
     loadAllDishes();
     initInvoiceOfBasket();
+    initFormField();
   }
-  
-function initInvoiceOfBasket(){}
-  document.getElementById("dishes_invoice").innerHTML = renderInvoiceOfBasket();
 
 function localStorageIsCleared() {
   if (localStorage.length!=0){
@@ -34,6 +32,14 @@ function loadAllDishes(){
         let singleDishObj = JSON.parse(localStorage.getItem(key));        
         allDishesRef.innerHTML += renderSingleDishSection(dishId, singleDishObj); 
     });
+}
+  
+function initInvoiceOfBasket(){
+  document.getElementById("dishes_invoice").innerHTML = renderInvoiceOfBasket();
+}
+
+function initFormField(){
+  document.getElementById('confirm_order').innerHTML = renderSubmitOrderButton();
 }
 
 function highlightDish(dishId){
