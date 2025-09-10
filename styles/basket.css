@@ -1,14 +1,13 @@
 .basket_wrapper{
     width: 300px;
     padding: 8px;
-    border: 5px solid;
+    box-shadow: 1px 0px 6px gray;
 }
 .basket{
     width:100%;
     min-height: 400px;
     position: sticky;
     top: 8px;
-    border: 2px solid;
 }
 .basket_headline{
     display: flex;
@@ -75,4 +74,14 @@
 }
 .dishes_invoice{
     padding: 8px;
+}
+.order_button{
+    width: 100%;
+    height: 64px;
+    font-size: 24px;
+    background-color: rgb(241, 241, 241);
+    border: none;
+}
+.order_button:hover{
+    background-color: rgb(255,128,0,0.2);
 }
