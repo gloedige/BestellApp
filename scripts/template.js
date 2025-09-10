@@ -53,3 +53,11 @@ function renderInvoiceOfBasket(){
           </div>
          `
 }
+
+function renderSubmitOrderButton(){
+  return `
+          <form class="formfield" onsubmit="confirmOrder()">
+            <button class="order_button" type="submit">Bestellen</button>
+          </form>
+         `
+}
