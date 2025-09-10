@@ -1,9 +1,4 @@
 let dishId = "";
-let invoiceArr =  [
-                  {"subtotal": 0},
-                  {"delivery_costs": 5},
-                  {"total_costs": 0}
-                  ];  
 
 function init(){
     if (localStorageIsCleared()){
@@ -14,10 +9,7 @@ function init(){
   }
   
 function initInvoiceOfBasket(){}
-  let subtotal = invoiceArr[0].subtotal;
-  let deliveryCosts = invoiceArr[1].delivery_costs;
-  let totalCosts = invoiceArr[2].total_costs;
-  document.getElementById("dishes_invoice").innerHTML = renderInvoiceOfBasket(subtotal, deliveryCosts, totalCosts);
+  document.getElementById("dishes_invoice").innerHTML = renderInvoiceOfBasket();
 
 function localStorageIsCleared() {
   if (localStorage.length!=0){
