@@ -106,8 +106,33 @@ footer{
     text-align: center;
     font-size: 24px;
 }
+.open_basket_button{
+    display: flex;
+    justify-content: center;
+    padding: 16px;
+    font-size: 24px;
+}
+.open_basket_button:hover{
+    background-color: rgb(242, 124, 27);
+}
 @media(max-width: 900px){
     .name_container{
         padding-top: 75px;
+    }
+}
+@media(min-width: 601px){
+    .open_basket_button{
+        display: none;
+    }
+}
+@media(max-width: 600px){
+    .basket_wrapper{
+        display: none;
+    }
+    main{
+        flex-direction: column;
+    }
+    .main_wrapper{
+        width:100%;
     }
 }
