@@ -69,3 +69,16 @@ function renderOrderConfirmation(){
           </div>
          `
 }
+
+function renderDialog(){
+  return `
+          <div class="container_dialog">
+            <h3 class="basket_headline">Warenkorb</h3>
+            <div class="dividing_line"></div>
+            <div class="dishes_in_basket" id="dishes_in_basket"></div>
+            <div class="dividing_line"></div>
+            <div class="dishes_invoice" id="dishes_invoice"></div>
+            <div class="confirm_order" id="confirm_order"></div>
+          </div>
+         `
+}
