@@ -9,6 +9,7 @@ function init(){
     initInvoiceOfBasket();
     initFormField();
     initEventListener();
+    initDialog();
   }
 
 function localStorageIsCleared() {
@@ -240,10 +241,16 @@ function initEventListener(){
   });
 }
 
+function initDialog(){
+  let dialogRef = document.getElementById('basket_dialog');
+  dialogRef.innerHTML = renderDialog();
+  dialogRef.close();
+}
+
 function openDialog(){
   let dialogRef = document.getElementById('basket_dialog');
   dialogRef.showModal();
-  dialogRef.innerHTML = renderDialog(); 
+   
   updateDialog();
 }
 
