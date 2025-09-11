@@ -1,4 +1,5 @@
 let dishId = "";
+document.addEventListener('click', closeDialog);
 
 function init(){
     if (localStorageIsCleared()){
@@ -67,6 +68,8 @@ function addToBasket(dishId){
     if(!isDishExistentInBasket(singleDishObj.name)){      
       let dishToBasketRef = document.getElementById('dishes_in_basket'); 
       dishToBasketRef.innerHTML += renderSingleDishInBasket(singleDishObj);
+      let dishToDialogRef = document.getElementById('dialog_dishes_in_basket'); 
+      dishToDialogRef.innerHTML += renderSingleDishInBasket(singleDishObj);
     }
     else{
       updateQuantityInBasket(singleDishObj);
@@ -235,4 +238,25 @@ function initEventListener(){
   form.addEventListener('submit', function(event){
     event.preventDefault();
   });
+}
+
+function openDialog(){
+  let dialogRef = document.getElementById('basket_dialog');
+  dialogRef.showModal();
+  dialogRef.innerHTML = renderDialog(); 
+  updateDialog();
+}
+
+function closeDialog(event){
+    let dialogRef = document.getElementById('basket_dialog');
+    if(event.target.contains(dialogRef) || event.target.id==""){
+        dialogRef.close();
+    }
+    else{
+        return;
+    }
+}
+
+function updateDialog(){
+
 }
