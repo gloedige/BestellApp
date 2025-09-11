@@ -115,6 +115,17 @@ footer{
 .open_basket_button:hover{
     background-color: rgb(242, 124, 27);
 }
+dialog{
+   position: absolute;
+    width: 600px;
+    height: 900px;
+    padding: 0px;
+    border-radius: 30px;
+}
+dialog::backdrop{
+    background-color: rgba(0,0,0,0.375);
+}
+
 @media(max-width: 900px){
     .name_container{
         padding-top: 75px;
