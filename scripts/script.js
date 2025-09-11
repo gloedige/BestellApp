@@ -7,6 +7,7 @@ function init(){
     loadAllDishes();
     initInvoiceOfBasket();
     initFormField();
+    initEventListener();
   }
 
 function localStorageIsCleared() {
@@ -40,6 +41,19 @@ function initInvoiceOfBasket(){
 
 function initFormField(){
   document.getElementById('confirm_order').innerHTML = renderSubmitOrderButton();
+  disableOrderButton();
+}
+
+function disableOrderButton(){
+  if(checkIsBasketEmpty()){
+    document.getElementById('order_button').disabled = true;
+    document.getElementById('order_button').classList.remove('order_button_hover');
+  };
+}
+
+function enableOrderButton(){
+  document.getElementById('order_button').disabled = false;
+  document.getElementById('order_button').classList.add('order_button_hover');
 }
 
 function highlightDish(dishId){
@@ -60,6 +74,7 @@ function addToBasket(dishId){
     increaseQuantity(singleDishObj.name);
     updateSubtotalDisplay();
     updateTotalDisplay();
+    enableOrderButton()
 }
 
 function deleteFromBasket(singleDishObjName){
@@ -69,6 +84,7 @@ function deleteFromBasket(singleDishObjName){
   resetQuantityOfDishInLocalStorage(singleDishObj);
   updateSubtotalDisplay();
   updateTotalDisplay();
+  disableOrderButton();
 }
 
 function resetQuantityOfDishInLocalStorage(singleDishObj){
@@ -201,12 +217,22 @@ function resetQuantityInLocalStorage(){
   Object.keys(localStorage).forEach(function(key){
     let singleDishObj = JSON.parse(localStorage.getItem(key));
     singleDishObj.quantity = 0;
-    console.log(singleDishObj);
     updateDisheInLocalStorage(singleDishObj);
     });
 }
 
-document.getElementById('dishes_in_basket').addEventListener("mouseover", function(event){
-  let button = event.target.closest('.button_basket');
+function checkIsBasketEmpty(){
+  if(calcTotalSum()==0){
+    return true
+  }
+  else{
+    return false
+  }
+}
 
-});
+function initEventListener(){
+  let form = document.querySelector('form');
+  form.addEventListener('submit', function(event){
+    event.preventDefault();
+  });
+}
