@@ -34,4 +34,7 @@ button{
     width: 30px;
     display: flex;
     justify-content: center;
+    background-color: white;
+    border: solid rgb(241, 241, 241);
+    border-radius: 2px;
 }

@@ -1,12 +1,95 @@
 .basket_wrapper{
     width: 300px;
     padding: 8px;
-    border: 5px solid;
+    box-shadow: 1px 0px 6px gray;
 }
 .basket{
     width:100%;
-    height: 400px;
+    min-height: 400px;
     position: sticky;
     top: 8px;
-    border: 2px solid;
+}
+.basket_headline{
+    display: flex;
+    justify-content: center;
+    padding: 16px;
+    font-size: 24px;
+}
+.dividing_line{
+    height: 2px;
+    background-color: rgb(241, 241, 241);
+}
+.container_price_and_quantity{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+.button_basket{
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    background-color: white;
+    border: none;
+}
+.remove_circle_icon.d_none{
+    display: none;
+}
+.remove_button:hover .remove_icon{
+    display: none;
+}
+.remove_button:hover .remove_circle_icon{
+    display: block;
+}
+.add_circle_icon.d_none{
+    display: none;
+}
+.add_button:hover .add_icon{
+    display: none;
+}
+.add_button:hover .add_circle_icon{
+    display: block;
+}
+.quantity_of_single_dish{
+    width: 48px;
+    text-align: center;
+}
+.total_price_of_single_dish{
+    width: 80px;
+    text-align: center;
+}
+.dishes_in_basket{
+    min-height: 200px;
+    padding: 8px;
+}
+.dishname_basket{
+    font-weight: 600;
+    margin: 16px 0px;
+}
+.subtotal_basket{
+    display: flex;
+    justify-content: space-between;
+}
+.total_basket{
+    font-weight: 600;
+}
+.dishes_invoice{
+    padding: 8px;
+}
+.order_button{
+    width: 100%;
+    height: 64px;
+    font-size: 24px;
+    background-color: rgb(241, 241, 241);
+    border: none;
+}
+.order_button_hover{
+    width: 100%;
+    height: 64px;
+    font-size: 24px;
+    background-color: rgb(241, 241, 241);
+    border: none;
+}
+.order_button_hover:hover{
+    background-color: rgb(255,128,0,0.2);
 }

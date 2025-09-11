@@ -29,6 +29,8 @@ let allDishes=[
         "price": 12.50,
         "quantity": 0
     }
-]
+];
+
+let deliveryCosts = 5.00;
 
 

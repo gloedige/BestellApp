@@ -4,12 +4,10 @@ main{
     margin: 0 auto;
     width: 100%;
     max-width: 1050px;
-    /* background-image: linear-gradient(360deg, black, rgb(255 255 255)); */
 }
 .main_wrapper{
     width: calc(100% - 300px);
     flex-grow: 1;
-    border: 5px solid;
 }
 header{
     background-color: #151B23;
@@ -91,4 +89,13 @@ header{
 }
 .light_orange_bg{
     background-color: rgb(255,128,0,0.2);
+}
+.confirmation_container{
+    min-height: 200px;
+    display: flex;
+    align-items: center;
+}
+.confirmation_message{
+    text-align: center;
+    font-size: 24px;
 }
