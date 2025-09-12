@@ -1,4 +1,4 @@
-let dishId = "";
+// let dishId = "";
 let dishesInBasketArr = [];
 document.addEventListener('click', closeDialog);
 
@@ -35,10 +35,9 @@ function saveDishesInLocalStorage(){
 
 function renderAllDishesToMenu(){
     let allDishesRef = document.getElementById('all_dishes');
-    Object.keys(localStorage).forEach(function(key){
-        dishId = key;
-        let singleDishObj = JSON.parse(localStorage.getItem(key));        
-        allDishesRef.innerHTML += renderSingleDishSection(dishId, singleDishObj); 
+    Object.keys(allDishes).forEach(function(key){
+        let dishObj = allDishes[key];     
+        allDishesRef.innerHTML += renderSingleDishSection(dishObj.name, dishObj); 
     });
 }
   

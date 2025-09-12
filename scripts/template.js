@@ -1,4 +1,4 @@
-function renderSingleDishSection(dishId, singleDishObj){
+function renderSingleDishSection(dishId, singleDishObj){ // dishId is name of dish
   return `
           <div class="single_dish" onmouseover="highlightDish('${dishId}')" onmouseout="highlightDish('${dishId}')" id="${dishId}">
             <div class="dish_attributes">
