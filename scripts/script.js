@@ -3,13 +3,11 @@ let dishesInBasketArr = [];
 document.addEventListener('click', closeDialog);
 
 function init(){
-    // if (localStorageIsCleared()){
-    //     saveBasketToLocalStorage();
-    // }
+    // getBasketFromLocalStorage();
     renderAllDishesToMenu();
     initInvoiceOfBasket();
     initFormField();
-    initDOMContentEventListener();
+    // initDOMContentEventListener();
     initDialog();
 }
 
@@ -17,19 +15,14 @@ function handleBasketInteraction(event){
   
 }
 
-function localStorageIsCleared() {
-  if (localStorage.length!=0){
-    return false; 
-  }
-  else{
-    return true;
-  }
+function setBasketToLocalStorage(){
+  localStorage.setItem('dishesInBasket', JSON.stringify(dishesInBasketArr));
 }
 
-function saveBasketToLocalStorage(){
-  for (let index = 0; index < dishesInBasketArr.length; index++) {
-    let dishJSON = JSON.stringify(dishesInBasketArr[index])
-    localStorage.setItem(dishesInBasketArr[index].name, dishJSON);
+function getBasketFromLocalStorage(){
+  let storedDishes = localStorage.getItem('dishesInBasket');
+  if (storedDishes){
+    dishesInBasketArr = JSON.parse(storedDishes);
   }
 }
 
@@ -39,6 +32,27 @@ function renderAllDishesToMenu(){
         let dishObj = allDishes[key];     
         allDishesRef.innerHTML += renderSingleDishSection(dishObj.name, dishObj); 
     });
+}
+
+function renderBasketItems(){
+  let basketHtml = '';
+  if(dishesInBasketArr.length == 0){
+    basketHtml = `<p>Ihr Warenkorb ist leer.</p>`;
+  }
+  else{
+    basketHtml = dishesInBasketArr.map(dish => renderSingleDishInBasket(dish).join(''));
+  }
+
+  let mainBasketContainer = document.getElementById('dishes_in_basket');
+  if (mainBasketContainer){
+    mainBasketContainer.innerHTML = basketHtml;
+  }
+
+  let dialogBasketContainer = document.getElementById('basket_dialog');
+  if (dialogBasketContainer){
+    dialogBasketContainer.innerHTML = basketHtml;
+  }
+
 }
   
 function initInvoiceOfBasket(){
@@ -77,7 +91,7 @@ function addToBasket(dishId){
       dishToDialogRef.innerHTML += renderSingleDishInBasket(singleDishObj);
     }
     else{
-      updateQuantityInBasket(singleDishObj);
+    updateQuantityInBasket(singleDishObj);
     }
     increaseQuantity(singleDishObj.name);
     updateSubtotalDisplay();
@@ -239,26 +253,27 @@ function checkIsBasketEmpty(){
 }
 
 function initDOMContentEventListener(){
-  document.addEventListener('DOMContentLoaded', function(){
-    loadBasket();
-    renderBasketItems();
+  
+  getBasketFromLocalStorage();
+  renderBasketItems();
 
-    document.getElementById('dishes_in_basket').addEventListener('click', function(event){
+  document.getElementById('dishes_in_basket').addEventListener('click', function(event){
+    handleBasketInteraction(event);
+  });
+
+  let dialogBasketContainer = document.getElementById('basket_dialog');
+  if(dialogBasketContainer){
+    dialogBasketContainer.addEventListener('click', function(event){
       handleBasketInteraction(event);
     });
+  };
 
-    let dialogBasketContainer = document.getElementById('basket_dialog');
-    if(dialogBasketContainer){
-      dialogBasketContainer.addEventListener('click', function(event){
-        handleBasketInteraction(event);
-      });
-    };
-
-    let form = document.querySelector('form');
+  let form = document.querySelector('form');
+  if (form){
     form.addEventListener('submit', function(event){
-      event.preventDefault();
+    event.preventDefault();
     });
-  });
+  }
 }
 
 function initDialog(){
@@ -270,8 +285,6 @@ function initDialog(){
 function openDialog(){
   let dialogRef = document.getElementById('basket_dialog');
   dialogRef.showModal();
-   
-  updateDialog();
 }
 
 function closeDialog(event){
@@ -284,6 +297,4 @@ function closeDialog(event){
     }
 }
 
-function updateDialog(){
-
-}
+document.addEventListener('DOMContentLoaded', initDOMContentEventListener);
