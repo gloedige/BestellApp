@@ -3,9 +3,9 @@ let dishesInBasketArr = [];
 document.addEventListener('click', closeDialog);
 
 function init(){
-    if (localStorageIsCleared()){
-        saveDishesInLocalStorage();
-    }
+    // if (localStorageIsCleared()){
+    //     saveBasketToLocalStorage();
+    // }
     renderAllDishesToMenu();
     initInvoiceOfBasket();
     initFormField();
@@ -26,10 +26,10 @@ function localStorageIsCleared() {
   }
 }
 
-function saveDishesInLocalStorage(){
-  for (let index = 0; index < allDishes.length; index++) {
-    let dishJSON = JSON.stringify(allDishes[index])
-    localStorage.setItem(allDishes[index].name, dishJSON);
+function saveBasketToLocalStorage(){
+  for (let index = 0; index < dishesInBasketArr.length; index++) {
+    let dishJSON = JSON.stringify(dishesInBasketArr[index])
+    localStorage.setItem(dishesInBasketArr[index].name, dishJSON);
   }
 }
 
