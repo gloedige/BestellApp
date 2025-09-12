@@ -1,16 +1,21 @@
 let dishId = "";
+let dishesInBasketArr = [];
 document.addEventListener('click', closeDialog);
 
 function init(){
     if (localStorageIsCleared()){
         saveDishesInLocalStorage();
     }
-    loadAllDishes();
+    renderAllDishesToMenu();
     initInvoiceOfBasket();
     initFormField();
-    initEventListener();
+    initDOMContentEventListener();
     initDialog();
-  }
+}
+
+function handleBasketInteraction(event){
+  
+}
 
 function localStorageIsCleared() {
   if (localStorage.length!=0){
@@ -28,7 +33,7 @@ function saveDishesInLocalStorage(){
   }
 }
 
-function loadAllDishes(){
+function renderAllDishesToMenu(){
     let allDishesRef = document.getElementById('all_dishes');
     Object.keys(localStorage).forEach(function(key){
         dishId = key;
@@ -234,10 +239,26 @@ function checkIsBasketEmpty(){
   }
 }
 
-function initEventListener(){
-  let form = document.querySelector('form');
-  form.addEventListener('submit', function(event){
-    event.preventDefault();
+function initDOMContentEventListener(){
+  document.addEventListener('DOMContentLoaded', function(){
+    loadBasket();
+    renderBasketItems();
+
+    document.getElementById('dishes_in_basket').addEventListener('click', function(event){
+      handleBasketInteraction(event);
+    });
+
+    let dialogBasketContainer = document.getElementById('basket_dialog');
+    if(dialogBasketContainer){
+      dialogBasketContainer.addEventListener('click', function(event){
+        handleBasketInteraction(event);
+      });
+    };
+
+    let form = document.querySelector('form');
+    form.addEventListener('submit', function(event){
+      event.preventDefault();
+    });
   });
 }
 
