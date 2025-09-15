@@ -5,7 +5,7 @@ document.addEventListener('click', closeDialog);
 function init(){
     // getBasketFromLocalStorage();
     renderAllDishesToMenu();
-    initInvoiceOfBasket();
+    // initInvoiceOfBasket();
     initFormField();
     // initDOMContentEventListener();
     initDialog();
@@ -56,6 +56,7 @@ function renderAllDishesToMenu(){
 
 function renderBasketItems(){
   let basketHtml = '';
+  let invoiceHtml = '';
   if(dishesInBasketArr.length == 0){
     basketHtml = `<p id="basket_empty">Ihr Warenkorb ist leer.</p>`;
   }
@@ -63,9 +64,23 @@ function renderBasketItems(){
     basketHtml = dishesInBasketArr.map(dish => renderSingleDishInBasket(dish).join(''));
   }
 
+  let subtotal = calcTotalSum()[0];
+  let total = calcTotalSum()[1];
+
+  invoiceHtml = renderInvoiceOfBasket(subtotal, total);
+
+
+  //render Rechnungsübersicht
+  // let singlePriceRef = document.getElementById("total_price_of_single_dish:_"+singleDishObj.name);
+  // singlePriceRef.innerHTML = (singleDishObj.quantity * singleDishObj.price).toFixed(2)+"€";
+
   let mainBasketContainer = document.getElementById('dishes_in_basket');
+  let mainBasketInvoiceContainer = document.getElementById('dishes_invoice');
   if (mainBasketContainer){
     mainBasketContainer.innerHTML = basketHtml;
+  }
+  if (mainBasketInvoiceContainer){
+    mainBasketInvoiceContainer.innerHTML = invoiceHtml;
   }
 
   let dialogBasketContainer = document.getElementById('basket_dialog');
@@ -213,8 +228,8 @@ function getDishObjectByDishName(singleDishName){
 }
 
 function totalPriceOfSingleDish(singleDishObj){
-  let singlePriceRef = document.getElementById("total_price_of_single_dish:_"+singleDishObj.name);
-  singlePriceRef.innerHTML = (singleDishObj.quantity * singleDishObj.price).toFixed(2)+"€";
+  //hier soll nur der Gesamtpreis pro Gericht errechnet und zurückgegeben werden
+  
 }
 
 function updateSubtotalDisplay(){
@@ -224,13 +239,21 @@ function updateSubtotalDisplay(){
 }
 
 function calcTotalSum(){
-  let allDishesArr = allItemsOfLocalStorage();
-
-  let total = allDishesArr.reduce((sum, dish) => {
+  let subtotal = 0;
+  let total = 0;
+  if(checkIsBasketEmpty()){
+    return[0,0];
+  }
+  else{  
+  let subtotalSum = dishesInBasketArr.reduce((sum, dish) => {
     return sum + (parseFloat(dish.price) * parseFloat(dish.quantity));
   }, 0);
+  subtotal = subtotalSum.toFixed(2) 
+  let finalSum = subtotal + deliveryCosts;
+  total = finalSum.toFixed(2);
 
-  return total;
+  return [subtotal, total];
+  }
 }
 
 function allItemsOfLocalStorage(){
@@ -258,7 +281,7 @@ function updateTotalDisplay(){
 function confirmOrder(){
   let confirmMessage = document.getElementById('dishes_in_basket');
   confirmMessage.innerHTML = renderOrderConfirmation();
-  initInvoiceOfBasket();
+  // initInvoiceOfBasket();
   resetQuantityInLocalStorage();
 }
 
