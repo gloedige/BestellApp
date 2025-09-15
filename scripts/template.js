@@ -37,11 +37,11 @@ function renderSingleDishInBasket(singleDishObj){
          `
 }
 
-function renderInvoiceOfBasket(){
+function renderInvoiceOfBasket(subtotal, total){
   return `
           <div class="subtotal_basket">
             <p>Zwischensumme</p>
-            <p id="subtotal">0.00€</p>
+            <p id="subtotal">${subtotal.toFixed(2)}€</p>
           </div>
           <div class="subtotal_basket">
               <p>Lieferkosten</p>
@@ -49,7 +49,7 @@ function renderInvoiceOfBasket(){
           </div>
           <div class="total_basket subtotal_basket">
               <p>Gesamt</p>
-              <p id="total_costs">0.00€</p>
+              <p id="total_costs">${total.toFixed(2)}€</p>
           </div>
          `
 }
