@@ -37,7 +37,7 @@ function renderAllDishesToMenu(){
 function renderBasketItems(){
   let basketHtml = '';
   if(dishesInBasketArr.length == 0){
-    basketHtml = `<p>Ihr Warenkorb ist leer.</p>`;
+    basketHtml = `<p id="basket_empty">Ihr Warenkorb ist leer.</p>`;
   }
   else{
     basketHtml = dishesInBasketArr.map(dish => renderSingleDishInBasket(dish).join(''));
@@ -82,18 +82,19 @@ function highlightDish(dishId){
 }
 
 function addToBasket(dishId){
-    resetOrderConfirmation();
+    resetInfoOfBasketWhenEmpty();
     let singleDishObj = getDishObjectByDishName(dishId);
-    if(!isDishExistentInBasket(singleDishObj.name)){      
-      let dishToBasketRef = document.getElementById('dishes_in_basket'); 
-      dishToBasketRef.innerHTML += renderSingleDishInBasket(singleDishObj);
-      let dishToDialogRef = document.getElementById('dialog_dishes_in_basket'); 
-      dishToDialogRef.innerHTML += renderSingleDishInBasket(singleDishObj);
+    increaseQuantity(dishId);
+    if(!isDishExistentInBasket(dishId)){     
+      renderBasketItems();
+      // let dishToBasketRef = document.getElementById('dishes_in_basket'); 
+      // dishToBasketRef.innerHTML += renderSingleDishInBasket(singleDishObj);
+      // let dishToDialogRef = document.getElementById('dialog_dishes_in_basket'); 
+      // dishToDialogRef.innerHTML += renderSingleDishInBasket(singleDishObj);
     }
-    else{
-    updateQuantityInBasket(singleDishObj);
-    }
-    increaseQuantity(singleDishObj.name);
+    // else{
+    // updateQuantityInBasket(singleDishObj);
+    // }
     updateSubtotalDisplay();
     updateTotalDisplay();
     enableOrderButton()
@@ -126,7 +127,7 @@ function increaseQuantity(singleDishName){
   let singleDishObj = getDishObjectByDishName(singleDishName);
   singleDishObj.quantity = parseInt(singleDishObj.quantity) + 1;
   updateDisheInLocalStorage(singleDishObj);
-  updateQuantityInBasket(singleDishObj);
+  // updateQuantityInBasket(singleDishObj);
   totalPriceOfSingleDish(singleDishObj);
   updateSubtotalDisplay();
   updateTotalDisplay();
@@ -157,9 +158,10 @@ function checkMiniumValueOfQuantity(singleDishObj){
 }
 
 function isDishExistentInBasket(singleDishName){
-  let idInBasketRef = document.getElementById("basket:_"+singleDishName);
+  let singleDishesInBasketArr = dishesInBasketArr.find(dish => dish.name === singleDishName);
+  // let idInBasketRef = document.getElementById("basket:_"+singleDishName);
   
-  if(idInBasketRef){
+  if(singleDishesInBasketArr){
     return true
   }
   else{
@@ -167,14 +169,14 @@ function isDishExistentInBasket(singleDishName){
   }
 }
 
-function updateQuantityInBasket(singleDishObj){
-  let singleDishQuantityRef = document.getElementById("quantity_of_single_dish:_"+singleDishObj.name);
-  singleDishQuantityRef.innerHTML = singleDishObj.quantity;
-}
+// function updateQuantityInBasket(singleDishObj){
+//   // let singleDishQuantityRef = document.getElementById("quantity_of_single_dish:_"+singleDishObj.name);
+
+//   singleDishQuantityRef.innerHTML = singleDishObj.quantity;
+// }
 
 function getDishObjectByDishName(singleDishName){
-  let dishId = singleDishName;
-  let singleDishObj = JSON.parse(localStorage.getItem(dishId));
+  let singleDishObj = allDishes.find(dish => dish.name === singleDishName);
   return singleDishObj
 }
 
@@ -228,11 +230,16 @@ function confirmOrder(){
   resetQuantityInLocalStorage();
 }
 
-function resetOrderConfirmation(){
-  let divToRemove = document.getElementById('confirmation_container'); 
-  if(divToRemove != null){
-    divToRemove.remove(); 
+function resetInfoOfBasketWhenEmpty(){
+  let confirmationRef = document.getElementById('confirmation_container'); 
+  let basketEmptyRef = document.getElementById('basket_empty');
+  if(confirmationRef != null){
+    confirmationRef.remove(); 
   }
+  if(basketEmptyRef != null){
+    basketEmptyRef.remove();
+  }
+
 }
 
 function resetQuantityInLocalStorage(){
