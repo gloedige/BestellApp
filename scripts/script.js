@@ -12,7 +12,27 @@ function init(){
 }
 
 function handleBasketInteraction(event){
-  
+  // hier ist die eigentliche Logik für increase, redúce und delete enthalten
+  // Finde den relevanten Button
+  let button = event.target.closest('button');
+  if(!button){
+    return;
+  }
+  // Finde den Container des Gerichts
+  let dishContainer = button.closest('.single_dish');
+  if(!dishContainer){
+    return;
+  }
+  // Hole ID des Gerichts aus dem Datenattribut
+  let dishId = dishContainer.dataset.dishId;
+
+  // Implementierung der Logik basierend auf der Klasse des Buttons
+  if(button.classList.contains('add_dish_button')){
+    addToBasket(dishId);
+  }
+
+
+  renderBasketItems();
 }
 
 function setBasketToLocalStorage(){
@@ -84,20 +104,23 @@ function highlightDish(dishId){
 function addToBasket(dishId){
     resetInfoOfBasketWhenEmpty();
     let singleDishObj = getDishObjectByDishName(dishId);
-    increaseQuantity(dishId);
-    if(!isDishExistentInBasket(dishId)){     
-      renderBasketItems();
+    if(!isDishExistentInBasket(dishId)){  
+      dishesInBasketArr.push(singleDishObj);
+      
       // let dishToBasketRef = document.getElementById('dishes_in_basket'); 
       // dishToBasketRef.innerHTML += renderSingleDishInBasket(singleDishObj);
       // let dishToDialogRef = document.getElementById('dialog_dishes_in_basket'); 
       // dishToDialogRef.innerHTML += renderSingleDishInBasket(singleDishObj);
     }
-    // else{
-    // updateQuantityInBasket(singleDishObj);
-    // }
+    increaseQuantity(dishId);
+
+
     updateSubtotalDisplay();
     updateTotalDisplay();
     enableOrderButton()
+
+
+    renderBasketItems();
 }
 
 function deleteFromBasket(singleDishObjName){
@@ -112,21 +135,25 @@ function deleteFromBasket(singleDishObjName){
 
 function resetQuantityOfDishInLocalStorage(singleDishObj){
   singleDishObj.quantity = 0;
-  updateDisheInLocalStorage(singleDishObj);
+  saveBasketInLocalStorage();
 }
 
 function toggleQuantityButtonImg(dishId){
     document.getElementById(dishId).classList.toggle("d_none");
 }
 
-function updateDisheInLocalStorage(singleDishObj){
-  localStorage.setItem(singleDishObj.name, JSON.stringify(singleDishObj));
+function saveBasketInLocalStorage(){
+  localStorage.setItem("dishesInBasketArr", JSON.stringify(dishesInBasketArr));
 }
 
 function increaseQuantity(singleDishName){
-  let singleDishObj = getDishObjectByDishName(singleDishName);
-  singleDishObj.quantity = parseInt(singleDishObj.quantity) + 1;
-  updateDisheInLocalStorage(singleDishObj);
+  // let singleDishObj = getDishObjectByDishName(singleDishName);
+  let singleDisheIndex = getIndexOfDishesInBasketArr(singleDishName);
+  dishesInBasketArr[singleDisheIndex].quantity = parseFloat(dishesInBasketArr[singleDisheIndex].quantity) + 1;
+
+
+  
+  saveBasketInLocalStorage();
   // updateQuantityInBasket(singleDishObj);
   totalPriceOfSingleDish(singleDishObj);
   updateSubtotalDisplay();
@@ -137,7 +164,7 @@ function reduceQuantity(singleDishName){
   let singleDishObj = getDishObjectByDishName(singleDishName)
   if(checkMiniumValueOfQuantity(singleDishObj)){
     singleDishObj.quantity = parseInt(singleDishObj.quantity) - 1;
-    updateDisheInLocalStorage(singleDishObj);
+    saveBasketInLocalStorage();
     updateQuantityInBasket(singleDishObj);
     totalPriceOfSingleDish(singleDishObj);
     updateSubtotalDisplay();
@@ -167,6 +194,11 @@ function isDishExistentInBasket(singleDishName){
   else{
     return false
   }
+}
+
+function getIndexOfDishesInBasketArr(singleDishName){
+  let singleDisheIndex = dishesInBasketArr.findIndex(dish => dish.name === singleDishName);
+  return singleDisheIndex
 }
 
 // function updateQuantityInBasket(singleDishObj){
@@ -239,19 +271,18 @@ function resetInfoOfBasketWhenEmpty(){
   if(basketEmptyRef != null){
     basketEmptyRef.remove();
   }
-
 }
 
 function resetQuantityInLocalStorage(){
   Object.keys(localStorage).forEach(function(key){
     let singleDishObj = JSON.parse(localStorage.getItem(key));
     singleDishObj.quantity = 0;
-    updateDisheInLocalStorage(singleDishObj);
+    saveBasketInLocalStorage();
     });
 }
 
 function checkIsBasketEmpty(){
-  if(calcTotalSum()==0){
+  if(dishesInBasketArr.length==0){
     return true
   }
   else{
