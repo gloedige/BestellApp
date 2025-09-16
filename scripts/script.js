@@ -117,11 +117,6 @@ function enableOrderButton(){
   }
 }
 
-function highlightDish(dishId){
-    document.getElementById(dishId).classList.toggle('light_orange_bg');
-    
-}
-
 function addToBasket(dishId){
     resetInfoOfBasketWhenEmpty();
     let singleDishObj = getDishObjectByDishName(dishId);
