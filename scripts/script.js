@@ -29,8 +29,10 @@ function handleBasketInteraction(event){
   // Implementierung der Logik basierend auf der Klasse des Buttons
   if(button.classList.contains('add_dish_button')){
     addToBasket(dishId);
+    enableOrderButton()
   }
-
+  increaseQuantity(dishId);
+  
 
   renderBasketItems();
 }
@@ -109,8 +111,10 @@ function disableOrderButton(){
 }
 
 function enableOrderButton(){
-  document.getElementById('order_button').disabled = false;
-  document.getElementById('order_button').classList.add('order_button_hover');
+  if(checkIsBasketEmpty){
+    document.getElementById('order_button').disabled = false;
+    document.getElementById('order_button').classList.add('order_button_hover');
+  }
 }
 
 function highlightDish(dishId){
@@ -129,15 +133,6 @@ function addToBasket(dishId){
       // let dishToDialogRef = document.getElementById('dialog_dishes_in_basket'); 
       // dishToDialogRef.innerHTML += renderSingleDishInBasket(singleDishObj);
     }
-    increaseQuantity(dishId);
-
-
-    updateSubtotalDisplay();
-    updateTotalDisplay();
-    enableOrderButton()
-
-
-    renderBasketItems();
 }
 
 function deleteFromBasket(singleDishObjName){
@@ -146,7 +141,6 @@ function deleteFromBasket(singleDishObjName){
   let singleDishObj = getDishObjectByDishName(dishId);
   resetQuantityOfDishInLocalStorage(singleDishObj);
   updateSubtotalDisplay();
-  updateTotalDisplay();
   disableOrderButton();
 }
 
@@ -174,7 +168,6 @@ function increaseQuantity(singleDishName){
   // updateQuantityInBasket(singleDishObj);
   totalPriceOfSingleDish(singleDishObj);
   updateSubtotalDisplay();
-  updateTotalDisplay();
 }
 
 function reduceQuantity(singleDishName){
@@ -184,8 +177,6 @@ function reduceQuantity(singleDishName){
     saveBasketInLocalStorage();
     updateQuantityInBasket(singleDishObj);
     totalPriceOfSingleDish(singleDishObj);
-    updateSubtotalDisplay();
-    updateTotalDisplay();
   }
   else{
     deleteFromBasket(singleDishObj.name);
@@ -234,12 +225,6 @@ function totalPriceOfSingleDish(singleDishObj){
   
 }
 
-function updateSubtotalDisplay(){
- let subtotalRef = document.getElementById('subtotal');
- let finalSum = calcTotalSum();
- subtotalRef.innerHTML = finalSum.toFixed(2) + "€";
-}
-
 function calcTotalSum(){
   let subtotal = 0;
   let total = 0;
@@ -268,17 +253,17 @@ function allItemsOfLocalStorage(){
   return allDishesArr
 }
 
-function updateTotalDisplay(){
-  let totalRef = document.getElementById('total_costs');
-  let subTotalSum = calcTotalSum();
-  if(subTotalSum == 0){
-    totalRef.innerHTML = "0.00€";
-  }
-  else{
-    let finalSum = subTotalSum + deliveryCosts;
-    totalRef.innerHTML = finalSum.toFixed(2) + "€";
-  }
-}
+// function updateTotalDisplay(){
+//   let totalRef = document.getElementById('total_costs');
+//   let subTotalSum = calcTotalSum();
+//   if(subTotalSum == 0){
+//     totalRef.innerHTML = "0.00€";
+//   }
+//   else{
+//     let finalSum = subTotalSum + deliveryCosts;
+//     totalRef.innerHTML = finalSum.toFixed(2) + "€";
+//   }
+// }
 
 function confirmOrder(){
   let confirmMessage = document.getElementById('dishes_in_basket');
