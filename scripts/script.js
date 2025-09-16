@@ -27,7 +27,7 @@ function handleBasketInteraction(event){
   let dishId = dishContainer.dataset.dishId;
 
   // Implementierung der Logik basierend auf der Klasse des Buttons
-  if(button.classList.contains('add_dish_button')){
+  if(button.classList.contains('add_dish_button')){    
     addToBasket(dishId);
     enableOrderButton()
   }
@@ -304,6 +304,10 @@ function initDOMContentEventListener(){
   
   getBasketFromLocalStorage();
   renderBasketItems();
+  
+  document.getElementById('all_dishes').addEventListener('click', function(event){
+    handleBasketInteraction(event);
+  })
 
   document.getElementById('dishes_in_basket').addEventListener('click', function(event){
     handleBasketInteraction(event);
