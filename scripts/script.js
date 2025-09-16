@@ -3,6 +3,7 @@ let dishesInBasketArr = [];
 document.addEventListener('click', closeDialog);
 
 function handleBasketInteraction(event){
+  let dishId = '';
   // hier ist die eigentliche Logik für increase, redúce und delete enthalten
   // Finde den relevanten Button
   let button = event.target.closest('button');
@@ -11,19 +12,27 @@ function handleBasketInteraction(event){
   }
   // Finde den Container des Gerichts
   let dishContainer = button.closest('.single_dish');
-  if(!dishContainer){
+  let singleDishInBasketContainer = button.closest('.single_dish_basket');
+  if (!dishContainer && !singleDishInBasketContainer){
     return;
   }
   // Hole ID des Gerichts aus dem Datenattribut
-  let dishId = dishContainer.dataset.dishId;
+  if (dishContainer && singleDishInBasketContainer==null){
+    dishId = dishContainer.dataset.dishId;
+  }
+  if (dishContainer==null && singleDishInBasketContainer){
+    dishId = singleDishInBasketContainer.dataset.dishId;
+  }
 
   // Implementierung der Logik basierend auf der Klasse des Buttons
-  if(button.classList.contains('add_dish_button')){    
+  if (button.classList.contains('add_dish_button')){    
     addToBasket(dishId);
     enableOrderButton()
+    increaseQuantity(dishId);
   }
-  increaseQuantity(dishId);
-  // totalPriceOfSingleDish(singleDishObj);
+  if (button.classList.contains('increase_quantity_button')){
+    increaseQuantity(dishId);
+  }
 
   renderBasketItems();
 }
@@ -50,6 +59,7 @@ function renderAllDishesToMenu(){
 function renderBasketItems(){
   let basketHtml = '';
   let invoiceHtml = '';
+
   if(dishesInBasketArr.length == 0){
     basketHtml = `<p class="confirmation_message" id="basket_empty">Ihr Warenkorb ist leer.</p>`;
     document.getElementById('dishes_in_basket').classList.add("confirmation_message");
@@ -61,13 +71,7 @@ function renderBasketItems(){
 
   let subtotal = calcTotalSum()[0];
   let total = calcTotalSum()[1];
-
   invoiceHtml = renderInvoiceOfBasket(subtotal, total);
-
-
-  //render Rechnungsübersicht
-  // let singlePriceRef = document.getElementById("total_price_of_single_dish:_"+singleDishObj.name);
-  // singlePriceRef.innerHTML = (singleDishObj.quantity * singleDishObj.price).toFixed(2)+"€";
 
   let mainBasketContainer = document.getElementById('dishes_in_basket');
   let mainBasketInvoiceContainer = document.getElementById('dishes_invoice');

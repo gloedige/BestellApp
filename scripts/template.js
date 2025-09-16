@@ -15,7 +15,7 @@ function renderSingleDishSection(dishId, singleDishObj){ // dishId is name of di
 
 function renderSingleDishInBasket(singleDishObj){
   return `
-          <div id='basket:_${singleDishObj.name}'>
+          <div class="single_dish_basket" data-dish-id="${singleDishObj.name}">
             <p class="dishname_basket">${singleDishObj.name}</p>
             <div class="container_price_and_quantity">
                 <button class="button_basket remove_button" onclick="reduceQuantity('${singleDishObj.name}')">
@@ -23,7 +23,7 @@ function renderSingleDishInBasket(singleDishObj){
                     <img src="./assets/icons/remove_circle_60dp_FF8000.png" alt="remove dish" class="remove_circle_icon d_none">
                 </button>
                 <p id="quantity_of_single_dish:_${singleDishObj.name}" class="quantity_of_single_dish">${singleDishObj.quantity}</p>
-                <button class="button_basket add_button" onclick="increaseQuantity('${singleDishObj.name}')">
+                <button class="button_basket increase_quantity_button">
                     <img src="./assets/icons/add_60dp_FF8000.png" alt="add dish" class="add_icon">
                     <img src="./assets/icons/add_circle_60dp_FF8000.png" alt="add dish" class="add_circle_icon d_none">
                 </button>
