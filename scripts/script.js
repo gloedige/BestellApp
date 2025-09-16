@@ -32,7 +32,7 @@ function handleBasketInteraction(event){
     enableOrderButton()
   }
   increaseQuantity(dishId);
-  
+  // totalPriceOfSingleDish(singleDishObj);
 
   renderBasketItems();
 }
@@ -64,7 +64,7 @@ function renderBasketItems(){
     document.getElementById('dishes_in_basket').classList.add("confirmation_message");
   }
   else{
-    basketHtml = dishesInBasketArr.map(dish => renderSingleDishInBasket(dish).join(''));
+    basketHtml = dishesInBasketArr.map(dish => renderSingleDishInBasket(dish)).join('');
     document.getElementById('dishes_in_basket').classList.remove("confirmation_message");
   }
 
@@ -135,7 +135,6 @@ function deleteFromBasket(singleDishObjName){
   let dishId = singleDishObjName;
   let singleDishObj = getDishObjectByDishName(dishId);
   resetQuantityOfDishInLocalStorage(singleDishObj);
-  updateSubtotalDisplay();
   disableOrderButton();
 }
 
@@ -157,12 +156,9 @@ function increaseQuantity(singleDishName){
   let singleDisheIndex = getIndexOfDishesInBasketArr(singleDishName);
   dishesInBasketArr[singleDisheIndex].quantity = parseFloat(dishesInBasketArr[singleDisheIndex].quantity) + 1;
 
-
-  
   saveBasketInLocalStorage();
+
   // updateQuantityInBasket(singleDishObj);
-  totalPriceOfSingleDish(singleDishObj);
-  updateSubtotalDisplay();
 }
 
 function reduceQuantity(singleDishName){
@@ -230,9 +226,8 @@ function calcTotalSum(){
   let subtotalSum = dishesInBasketArr.reduce((sum, dish) => {
     return sum + (parseFloat(dish.price) * parseFloat(dish.quantity));
   }, 0);
-  subtotal = subtotalSum.toFixed(2) 
-  let finalSum = subtotal + deliveryCosts;
-  total = finalSum.toFixed(2);
+  subtotal = subtotalSum;
+  total = subtotal + deliveryCosts;
 
   return [subtotal, total];
   }
