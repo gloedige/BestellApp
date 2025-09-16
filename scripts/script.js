@@ -2,15 +2,6 @@
 let dishesInBasketArr = [];
 document.addEventListener('click', closeDialog);
 
-function init(){
-    // getBasketFromLocalStorage();
-    renderAllDishesToMenu();
-    // initInvoiceOfBasket();
-    initFormField();
-    // initDOMContentEventListener();
-    initDialog();
-}
-
 function handleBasketInteraction(event){
   // hier ist die eigentliche Logik für increase, redúce und delete enthalten
   // Finde den relevanten Button
@@ -87,9 +78,13 @@ function renderBasketItems(){
     mainBasketInvoiceContainer.innerHTML = invoiceHtml;
   }
 
-  let dialogBasketContainer = document.getElementById('basket_dialog');
+  let dialogBasketContainer = document.getElementById('dialog_dishes_in_basket');
+  let dialogBasketInvoiceContainer = document.getElementById('dialog_dishes_invoice');
   if (dialogBasketContainer){
     dialogBasketContainer.innerHTML = basketHtml;
+  }
+  if (dialogBasketInvoiceContainer){
+    dialogBasketInvoiceContainer.innerHTML = invoiceHtml;
   }
 
 }
@@ -100,6 +95,7 @@ function initInvoiceOfBasket(){
 
 function initFormField(){
   document.getElementById('confirm_order').innerHTML = renderSubmitOrderButton();
+  document.getElementById('dialog_confirm_order').innerHTML = renderSubmitOrderButton();
   disableOrderButton();
 }
 
@@ -293,7 +289,10 @@ function checkIsBasketEmpty(){
 function initDOMContentEventListener(){
   
   getBasketFromLocalStorage();
+  renderAllDishesToMenu();
   renderBasketItems();
+  initDialog();
+  initFormField();
   
   document.getElementById('all_dishes').addEventListener('click', function(event){
     handleBasketInteraction(event);
