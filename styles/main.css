@@ -102,10 +102,6 @@ footer{
     display: flex;
     align-items: center;
 }
-.confirmation_message{
-    text-align: center;
-    font-size: 24px;
-}
 .open_basket_button{
     display: flex;
     justify-content: center;

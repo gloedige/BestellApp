@@ -93,3 +93,10 @@
 .order_button_hover:hover{
     background-color: rgb(255,128,0,0.2);
 }
+.confirmation_message{
+    text-align: center;
+    font-size: 24px;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+}
