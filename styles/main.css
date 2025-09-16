@@ -79,6 +79,10 @@ footer{
     justify-content: space-between;
     margin: 8px;
     border: 2px solid rgb(241, 241, 241);
+    cursor: pointer;
+}
+.single_dish:hover{
+    background-color: rgb(255,128,0,0.2);
 }
 .dish_attributes{
     padding: 8px;
