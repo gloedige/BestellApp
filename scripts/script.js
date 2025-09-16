@@ -58,10 +58,12 @@ function renderBasketItems(){
   let basketHtml = '';
   let invoiceHtml = '';
   if(dishesInBasketArr.length == 0){
-    basketHtml = `<p id="basket_empty">Ihr Warenkorb ist leer.</p>`;
+    basketHtml = `<p class="confirmation_message" id="basket_empty">Ihr Warenkorb ist leer.</p>`;
+    document.getElementById('dishes_in_basket').classList.add("confirmation_message");
   }
   else{
     basketHtml = dishesInBasketArr.map(dish => renderSingleDishInBasket(dish).join(''));
+    document.getElementById('dishes_in_basket').classList.remove("confirmation_message");
   }
 
   let subtotal = calcTotalSum()[0];
