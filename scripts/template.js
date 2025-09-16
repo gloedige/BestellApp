@@ -27,7 +27,7 @@ function renderSingleDishInBasket(singleDishObj){
                     <img src="./assets/icons/add_60dp_FF8000.png" alt="add dish" class="add_icon">
                     <img src="./assets/icons/add_circle_60dp_FF8000.png" alt="add dish" class="add_circle_icon d_none">
                 </button>
-                <p id="total_price_of_single_dish:_${singleDishObj.name}" class="total_price_of_single_dish">${singleDishObj.price.toFixed(2)}</p>
+                <p id="total_price_of_single_dish:_${singleDishObj.name}" class="total_price_of_single_dish">${(singleDishObj.quantity * singleDishObj.price).toFixed(2)}€</p>
                 <button class="button_basket" onclick="deleteFromBasket('${singleDishObj.name}')">
                     <img src="./assets/icons/delete_60dp_FF8000.png" alt="delete single dish">
                 </button>
