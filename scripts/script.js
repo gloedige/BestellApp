@@ -42,10 +42,6 @@ function handleBasketInteraction(event){
   renderBasketItems();
 }
 
-function setBasketToLocalStorage(){
-  localStorage.setItem('dishesInBasket', JSON.stringify(dishesInBasketArr));
-}
-
 function getBasketFromLocalStorage(){
   let storedDishes = localStorage.getItem('dishesInBasket');
   if (storedDishes){
@@ -97,10 +93,6 @@ function renderBasketItems(){
   }
 
 }
-  
-function initInvoiceOfBasket(){
-  document.getElementById("dishes_invoice").innerHTML = renderInvoiceOfBasket();
-}
 
 function initFormField(){
   document.getElementById('confirm_order').innerHTML = renderSubmitOrderButton();
@@ -115,7 +107,7 @@ function disableOrderButton(){
       button.disabled = true;
       button.classList.remove('order_button_hover');
     }
-  };
+  }
 }
 
 function enableOrderButton(){
@@ -219,16 +211,6 @@ function calcTotalSum(){
 
   return [subtotal, total];
   }
-}
-
-function allItemsOfLocalStorage(){
-  let allDishesArr = [];
-
-  Object.keys(localStorage).forEach(function(key){
-    allDishesArr.push(JSON.parse(localStorage.getItem(key)));
-    });
-  
-  return allDishesArr
 }
 
 function confirmOrder(){
