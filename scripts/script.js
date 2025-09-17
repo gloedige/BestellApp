@@ -32,6 +32,9 @@ function handleBasketInteraction(event){
   if (button.classList.contains('increase_quantity_button')){
     increaseQuantity(dishId);
   }
+  if (button.classList.contains('reduce_quantity_button')){
+    reduceQuantity(dishId);
+  }
 
   renderBasketItems();
 }
@@ -148,25 +151,24 @@ function saveBasketInLocalStorage(){
 function increaseQuantity(singleDishName){
   let singleDisheIndex = getIndexOfDishesInBasketArr(singleDishName);
   dishesInBasketArr[singleDisheIndex].quantity = parseFloat(dishesInBasketArr[singleDisheIndex].quantity) + 1;
-
+  
   saveBasketInLocalStorage();
 }
 
 function reduceQuantity(singleDishName){
-  let singleDishObj = getDishObjectByDishName(singleDishName)
-  if(checkMiniumValueOfQuantity(singleDishObj)){
-    singleDishObj.quantity = parseInt(singleDishObj.quantity) - 1;
+  let singleDisheIndex = getIndexOfDishesInBasketArr(singleDishName);
+  
+  if(checkMiniumValueOfQuantity(singleDisheIndex)){
+    dishesInBasketArr[singleDisheIndex].quantity = parseFloat(dishesInBasketArr[singleDisheIndex].quantity) - 1;
     saveBasketInLocalStorage();
-    updateQuantityInBasket(singleDishObj);
-    totalPriceOfSingleDish(singleDishObj);
   }
   else{
     deleteFromBasket(singleDishObj.name);
   }
 }
 
-function checkMiniumValueOfQuantity(singleDishObj){
-  if(singleDishObj.quantity>1){
+function checkMiniumValueOfQuantity(singleDisheIndex){
+  if(dishesInBasketArr[singleDisheIndex].quantity>1){
     return true
   }
   else{
