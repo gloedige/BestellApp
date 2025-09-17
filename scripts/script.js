@@ -1,4 +1,3 @@
-// let dishId = "";
 let dishesInBasketArr = [];
 document.addEventListener('click', closeDialog);
 
@@ -122,11 +121,6 @@ function addToBasket(dishId){
     let singleDishObj = getDishObjectByDishName(dishId);
     if(!isDishExistentInBasket(dishId)){  
       dishesInBasketArr.push(singleDishObj);
-      
-      // let dishToBasketRef = document.getElementById('dishes_in_basket'); 
-      // dishToBasketRef.innerHTML += renderSingleDishInBasket(singleDishObj);
-      // let dishToDialogRef = document.getElementById('dialog_dishes_in_basket'); 
-      // dishToDialogRef.innerHTML += renderSingleDishInBasket(singleDishObj);
     }
 }
 
@@ -152,13 +146,10 @@ function saveBasketInLocalStorage(){
 }
 
 function increaseQuantity(singleDishName){
-  // let singleDishObj = getDishObjectByDishName(singleDishName);
   let singleDisheIndex = getIndexOfDishesInBasketArr(singleDishName);
   dishesInBasketArr[singleDisheIndex].quantity = parseFloat(dishesInBasketArr[singleDisheIndex].quantity) + 1;
 
   saveBasketInLocalStorage();
-
-  // updateQuantityInBasket(singleDishObj);
 }
 
 function reduceQuantity(singleDishName){
@@ -185,7 +176,6 @@ function checkMiniumValueOfQuantity(singleDishObj){
 
 function isDishExistentInBasket(singleDishName){
   let singleDishesInBasketArr = dishesInBasketArr.find(dish => dish.name === singleDishName);
-  // let idInBasketRef = document.getElementById("basket:_"+singleDishName);
   
   if(singleDishesInBasketArr){
     return true
@@ -200,20 +190,9 @@ function getIndexOfDishesInBasketArr(singleDishName){
   return singleDisheIndex
 }
 
-// function updateQuantityInBasket(singleDishObj){
-//   // let singleDishQuantityRef = document.getElementById("quantity_of_single_dish:_"+singleDishObj.name);
-
-//   singleDishQuantityRef.innerHTML = singleDishObj.quantity;
-// }
-
 function getDishObjectByDishName(singleDishName){
   let singleDishObj = allDishes.find(dish => dish.name === singleDishName);
   return singleDishObj
-}
-
-function totalPriceOfSingleDish(singleDishObj){
-  //hier soll nur der Gesamtpreis pro Gericht errechnet und zurückgegeben werden
-  
 }
 
 function calcTotalSum(){
@@ -243,22 +222,9 @@ function allItemsOfLocalStorage(){
   return allDishesArr
 }
 
-// function updateTotalDisplay(){
-//   let totalRef = document.getElementById('total_costs');
-//   let subTotalSum = calcTotalSum();
-//   if(subTotalSum == 0){
-//     totalRef.innerHTML = "0.00€";
-//   }
-//   else{
-//     let finalSum = subTotalSum + deliveryCosts;
-//     totalRef.innerHTML = finalSum.toFixed(2) + "€";
-//   }
-// }
-
 function confirmOrder(){
   let confirmMessage = document.getElementById('dishes_in_basket');
   confirmMessage.innerHTML = renderOrderConfirmation();
-  // initInvoiceOfBasket();
   resetQuantityInLocalStorage();
 }
 
