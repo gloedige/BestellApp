@@ -18,7 +18,7 @@ function renderSingleDishInBasket(singleDishObj){
           <div class="single_dish_basket" data-dish-id="${singleDishObj.name}">
             <p class="dishname_basket">${singleDishObj.name}</p>
             <div class="container_price_and_quantity">
-                <button class="button_basket remove_button" onclick="reduceQuantity('${singleDishObj.name}')">
+                <button class="button_basket reduce_quantity_button">
                     <img src="./assets/icons/remove_60dp_FF8000.png" alt="remove dish" class="remove_icon">
                     <img src="./assets/icons/remove_circle_60dp_FF8000.png" alt="remove dish" class="remove_circle_icon d_none">
                 </button>
