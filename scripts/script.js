@@ -216,7 +216,7 @@ function calcTotalSum(){
 function confirmOrder(){
   let confirmMessage = document.getElementById('dishes_in_basket');
   confirmMessage.innerHTML = renderOrderConfirmation();
-  resetQuantityInLocalStorage();
+  deleteBasketInLocalStorage();
 }
 
 function resetInfoOfBasketWhenEmpty(){
@@ -230,12 +230,8 @@ function resetInfoOfBasketWhenEmpty(){
   }
 }
 
-function resetQuantityInLocalStorage(){
-  Object.keys(localStorage).forEach(function(key){
-    let singleDishObj = JSON.parse(localStorage.getItem(key));
-    singleDishObj.quantity = 0;
-    saveBasketInLocalStorage();
-    });
+function deleteBasketInLocalStorage(){
+  localStorage.removeItem("dishesInBasketArr");
 }
 
 function checkIsBasketEmpty(){
@@ -264,7 +260,7 @@ function initDOMContentEventListener(){
   });
 
   let dialogBasketContainer = document.getElementById('basket_dialog');
-  if(dialogBasketContainer){
+  if (dialogBasketContainer){
     dialogBasketContainer.addEventListener('click', function(event){
       handleBasketInteraction(event);
     });
