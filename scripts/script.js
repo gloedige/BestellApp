@@ -1,4 +1,5 @@
 let dishesInBasketArr = [];
+let confirmationState = false;
 document.addEventListener('click', closeDialog);
 
 function handleBasketInteraction(event){
@@ -12,6 +13,7 @@ function handleBasketInteraction(event){
   // Finde den Container des Gerichts
   let dishContainer = button.closest('.single_dish');
   let singleDishInBasketContainer = button.closest('.single_dish_basket');
+  // let orderButtonContainer = button.closest('.order_button');
   if (!dishContainer && !singleDishInBasketContainer){
     return;
   }
@@ -38,6 +40,26 @@ function handleBasketInteraction(event){
   if (button.classList.contains('delete_dish')){
     deleteFromBasket(dishId);
   }
+  // if (button.classList.contains('order_button')){
+  //   confirmOrder();
+  // }
+
+  renderBasketItems();
+}
+
+function handleFormSubmit(event){
+  event.preventDefault();
+
+  let submittedForm = event.target;
+  
+  if (!submittedForm){
+    return;
+  }
+  if (submittedForm.classList.contains('formfield')){
+    resetDishesInBasketArr();
+    deleteBasketInLocalStorage();
+    confirmOrder();
+  }
 
   renderBasketItems();
 }
@@ -61,9 +83,12 @@ function renderBasketItems(){
   let basketHtml = '';
   let invoiceHtml = '';
 
-  if(dishesInBasketArr.length == 0){
+  if(dishesInBasketArr.length == 0 && confirmationState == false){
     basketHtml = `<p class="confirmation_message" id="basket_empty">Ihr Warenkorb ist leer.</p>`;
     document.getElementById('dishes_in_basket').classList.add("confirmation_message");
+  }
+  else if (dishesInBasketArr.length == 0 && confirmationState == true){
+    basketHtml = renderOrderConfirmation();
   }
   else{
     basketHtml = dishesInBasketArr.map(dish => renderSingleDishInBasket(dish)).join('');
@@ -95,8 +120,8 @@ function renderBasketItems(){
 }
 
 function initFormField(){
-  document.getElementById('confirm_order').innerHTML = renderSubmitOrderButton();
-  document.getElementById('dialog_confirm_order').innerHTML = renderSubmitOrderButton();
+  document.getElementById('confirm_order').innerHTML = renderSubmitOrderButton("main_basket_form");
+  document.getElementById('dialog_confirm_order').innerHTML = renderSubmitOrderButton("dialog_basket_form");
   disableOrderButton();
 }
 
@@ -214,9 +239,7 @@ function calcTotalSum(){
 }
 
 function confirmOrder(){
-  let confirmMessage = document.getElementById('dishes_in_basket');
-  confirmMessage.innerHTML = renderOrderConfirmation();
-  deleteBasketInLocalStorage();
+  confirmationState = true;
 }
 
 function resetInfoOfBasketWhenEmpty(){
@@ -232,6 +255,10 @@ function resetInfoOfBasketWhenEmpty(){
 
 function deleteBasketInLocalStorage(){
   localStorage.removeItem("dishesInBasketArr");
+}
+
+function resetDishesInBasketArr(){
+  dishesInBasketArr = [];
 }
 
 function checkIsBasketEmpty(){
@@ -250,6 +277,7 @@ function initDOMContentEventListener(){
   renderBasketItems();
   initDialog();
   initFormField();
+  confirmationState = false;
   
   document.getElementById('all_dishes').addEventListener('click', function(event){
     handleBasketInteraction(event);
@@ -266,11 +294,19 @@ function initDOMContentEventListener(){
     });
   };
 
-  let form = document.querySelector('form');
-  if (form){
-    form.addEventListener('submit', function(event){
-    event.preventDefault();
+  let mainBasketForm = document.getElementById('main_basket_form');
+  let dialogBasketForm = document.getElementById('dialog_basket_form');
+
+  if (mainBasketForm){
+    mainBasketForm.addEventListener('submit', function(event){
+      console.log('EventListener Form wurde gestartet!');
+      handleFormSubmit(event);
     });
+  }
+  if (dialogBasketForm){
+    dialogBasketForm.addEventListener('submit', function(event){
+      handleFormSubmit(event);
+    })
   }
 }
 
