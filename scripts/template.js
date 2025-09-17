@@ -53,9 +53,9 @@ function renderInvoiceOfBasket(subtotal, total){
          `
 }
 
-function renderSubmitOrderButton(){
+function renderSubmitOrderButton(id){
   return `
-          <form class="formfield" onsubmit="confirmOrder()">
+          <form class="formfield" id="${id}">
             <button class="order_button order_button_hover" type="submit" id="order_button">Bestellen</button>
           </form>
          `
