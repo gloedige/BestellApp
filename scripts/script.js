@@ -26,7 +26,7 @@ function handleBasketInteraction(event){
   // Implementierung der Logik basierend auf der Klasse des Buttons
   if (button.classList.contains('add_dish_button')){    
     addToBasket(dishId);
-    enableOrderButton()
+    enableOrderButton();
     increaseQuantity(dishId);
   }
   if (button.classList.contains('increase_quantity_button')){
@@ -34,6 +34,9 @@ function handleBasketInteraction(event){
   }
   if (button.classList.contains('reduce_quantity_button')){
     reduceQuantity(dishId);
+  }
+  if (button.classList.contains('delete_dish')){
+    deleteFromBasket(dishId);
   }
 
   renderBasketItems();
@@ -107,15 +110,21 @@ function initFormField(){
 
 function disableOrderButton(){
   if(checkIsBasketEmpty()){
-    document.getElementById('order_button').disabled = true;
-    document.getElementById('order_button').classList.remove('order_button_hover');
+    let buttonList = document.getElementsByClassName('order_button');
+    for (let button of buttonList){
+      button.disabled = true;
+      button.classList.remove('order_button_hover');
+    }
   };
 }
 
 function enableOrderButton(){
-  if(checkIsBasketEmpty){
-    document.getElementById('order_button').disabled = false;
-    document.getElementById('order_button').classList.add('order_button_hover');
+  if(!checkIsBasketEmpty()){
+    let buttonList = document.getElementsByClassName('order_button');
+    for (let button of buttonList){
+      button.disabled = false;
+      button.classList.add('order_button_hover');
+    }
   }
 }
 
@@ -127,16 +136,12 @@ function addToBasket(dishId){
     }
 }
 
-function deleteFromBasket(singleDishObjName){
-  document.getElementById("basket:_"+singleDishObjName).remove();
-  let dishId = singleDishObjName;
-  let singleDishObj = getDishObjectByDishName(dishId);
-  resetQuantityOfDishInLocalStorage(singleDishObj);
-  disableOrderButton();
-}
+function deleteFromBasket(singleDishName){
+  let singleDisheIndex = getIndexOfDishesInBasketArr(singleDishName);
+  dishesInBasketArr.splice(singleDisheIndex,1);
+  console.log(dishesInBasketArr);
 
-function resetQuantityOfDishInLocalStorage(singleDishObj){
-  singleDishObj.quantity = 0;
+  disableOrderButton();
   saveBasketInLocalStorage();
 }
 
@@ -163,7 +168,7 @@ function reduceQuantity(singleDishName){
     saveBasketInLocalStorage();
   }
   else{
-    deleteFromBasket(singleDishObj.name);
+    deleteFromBasket(singleDishName);
   }
 }
 
@@ -194,7 +199,9 @@ function getIndexOfDishesInBasketArr(singleDishName){
 
 function getDishObjectByDishName(singleDishName){
   let singleDishObj = allDishes.find(dish => dish.name === singleDishName);
-  return singleDishObj
+  // make a deep copy of singleDishObj to keep object allDishes untouched
+  let singleDishObjDeepCopy = JSON.parse(JSON.stringify(singleDishObj));
+  return singleDishObjDeepCopy
 }
 
 function calcTotalSum(){
