@@ -79,6 +79,10 @@ footer{
     justify-content: space-between;
     margin: 8px;
     border: 2px solid rgb(241, 241, 241);
+    cursor: pointer;
+}
+.single_dish:hover{
+    background-color: rgb(255,128,0,0.2);
 }
 .dish_attributes{
     padding: 8px;
@@ -102,10 +106,6 @@ footer{
     display: flex;
     align-items: center;
 }
-.confirmation_message{
-    text-align: center;
-    font-size: 24px;
-}
 .open_basket_button{
     display: flex;
     justify-content: center;
@@ -126,7 +126,7 @@ dialog::backdrop{
     background-color: rgba(0,0,0,0.375);
 }
 
-@media(max-width: 900px){
+@media(max-width: 1050px){
     .name_container{
         padding-top: 75px;
     }
