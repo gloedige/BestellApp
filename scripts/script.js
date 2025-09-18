@@ -4,7 +4,7 @@ document.addEventListener('click', closeDialog);
 
 function handleBasketInteraction(event){
   let dishId = '';
-  // hier ist die eigentliche Logik für increase, redúce und delete enthalten
+  // hier ist die eigentliche Logik für increase, reduce und delete enthalten
   // Finde den relevanten Button
   let button = event.target.closest('button');
   if(!button){
@@ -13,7 +13,7 @@ function handleBasketInteraction(event){
   // Finde den Container des Gerichts
   let dishContainer = button.closest('.single_dish');
   let singleDishInBasketContainer = button.closest('.single_dish_basket');
-  // let orderButtonContainer = button.closest('.order_button');
+
   if (!dishContainer && !singleDishInBasketContainer){
     return;
   }
@@ -59,6 +59,7 @@ function handleFormSubmit(event){
     resetDishesInBasketArr();
     deleteBasketInLocalStorage();
     confirmOrder();
+    disableOrderButton();
   }
 
   renderBasketItems();
@@ -146,17 +147,19 @@ function enableOrderButton(){
 }
 
 function addToBasket(dishId){
-    resetInfoOfBasketWhenEmpty();
-    let singleDishObj = getDishObjectByDishName(dishId);
-    if(!isDishExistentInBasket(dishId)){  
-      dishesInBasketArr.push(singleDishObj);
-    }
+  if (checkIsBasketEmpty()){
+    confirmationState = false;
+  }
+  resetInfoOfBasketWhenEmpty();
+  let singleDishObj = getDishObjectByDishName(dishId);
+  if(!isDishExistentInBasket(dishId)){  
+    dishesInBasketArr.push(singleDishObj);
+  }
 }
 
 function deleteFromBasket(singleDishName){
   let singleDisheIndex = getIndexOfDishesInBasketArr(singleDishName);
   dishesInBasketArr.splice(singleDisheIndex,1);
-  console.log(dishesInBasketArr);
 
   disableOrderButton();
   saveBasketInLocalStorage();
@@ -299,7 +302,6 @@ function initDOMContentEventListener(){
 
   if (mainBasketForm){
     mainBasketForm.addEventListener('submit', function(event){
-      console.log('EventListener Form wurde gestartet!');
       handleFormSubmit(event);
     });
   }
