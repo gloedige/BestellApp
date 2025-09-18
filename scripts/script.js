@@ -3,41 +3,32 @@ let confirmationState = false;
 document.addEventListener('click', closeDialog);
 
 function handleBasketInteraction(event){
-  let dishId = '';
-  let button = event.target.closest('button');
-  if(!button){
-    return;
-  }
-  
-  let dishContainer = button.closest('.single_dish');
-  let singleDishInBasketContainer = button.closest('.single_dish_basket');
-  if (!dishContainer && !singleDishInBasketContainer){
-    return;
-  }
-  // Hole ID des Gerichts aus dem Datenattribut
-  dishId = getIdFromDataset(dishContainer, singleDishInBasketContainer);
- 
+  let button = getButtonFromEvent(event);
+  if(!button){return;}
+  let containerArr = getContainerFromEventBubbling(button);
+  if (containerArr.length == 0){return;}
 
+  let dishId = getIdFromDataset(dishContainer=containerArr[0], singleDishInBasketContainer=containerArr[1]);
   // Implementierung der Logik basierend auf der Klasse des Buttons
   if (button.classList.contains('add_dish_button')){    
     addToBasket(dishId);
     enableOrderButton();
-    increaseQuantity(dishId);
-  }
-  if (button.classList.contains('increase_quantity_button')){
-    increaseQuantity(dishId);
-  }
-  if (button.classList.contains('reduce_quantity_button')){
-    reduceQuantity(dishId);
-  }
-  if (button.classList.contains('delete_dish_button')){
-    deleteFromBasket(dishId);
-  }
-  // if (button.classList.contains('order_button')){
-  //   confirmOrder();
-  // }
-
+    increaseQuantity(dishId);}
+  if (button.classList.contains('increase_quantity_button')){increaseQuantity(dishId);}
+  if (button.classList.contains('reduce_quantity_button')){reduceQuantity(dishId);}
+  if (button.classList.contains('delete_dish_button')){deleteFromBasket(dishId);}
   renderBasketItems();
+}
+
+function getButtonFromEvent(event){
+  let button = event.target.closest('button');
+  return button;
+}
+
+function getContainerFromEventBubbling(button){
+  let dishContainer = button.closest('.single_dish');
+  let singleDishInBasketContainer = button.closest('.single_dish_basket');
+  return [dishContainer, singleDishInBasketContainer];
 }
 
 function getIdFromDataset(dishContainer, singleDishInBasketContainer){
