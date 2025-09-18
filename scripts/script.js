@@ -10,10 +10,9 @@ function handleBasketInteraction(event){
 
   let dishId = getIdFromDataset(dishContainer=containerArr[0], singleDishInBasketContainer=containerArr[1]);
   // Implementierung der Logik basierend auf der Klasse des Buttons
-  if (button.classList.contains('add_dish_button')){    
-    addToBasket(dishId);
-    enableOrderButton();
-    increaseQuantity(dishId);}
+  if (button.classList.contains('add_dish_button')){addToBasket(dishId);
+                                                    enableOrderButton();
+                                                    increaseQuantity(dishId);}
   if (button.classList.contains('increase_quantity_button')){increaseQuantity(dishId);}
   if (button.classList.contains('reduce_quantity_button')){reduceQuantity(dishId);}
   if (button.classList.contains('delete_dish_button')){deleteFromBasket(dishId);}
@@ -258,41 +257,51 @@ function checkIsBasketEmpty(){
 }
 
 function initDOMContentEventListener(){
-  
+  confirmationState = false;
   getBasketFromLocalStorage();
   renderAllDishesToMenu();
   renderBasketItems();
   initDialog();
   initFormField();
-  confirmationState = false;
+
+  initDishMenuEventListener();
+  initBasketMainEventListener();
+  initBasketDialogEventListener();
+
+  initFormFieldMainEventListener();
+  initFormFieldDialogEventListener();
+}
   
+  
+function initDishMenuEventListener(){
   document.getElementById('all_dishes').addEventListener('click', function(event){
-    handleBasketInteraction(event);
-  })
-
+  handleBasketInteraction(event);})
+}
+    
+function initBasketMainEventListener(){
   document.getElementById('dishes_in_basket').addEventListener('click', function(event){
-    handleBasketInteraction(event);
-  });
+    handleBasketInteraction(event);});
+}
 
+function initBasketDialogEventListener(){
   let dialogBasketContainer = document.getElementById('basket_dialog');
   if (dialogBasketContainer){
     dialogBasketContainer.addEventListener('click', function(event){
-      handleBasketInteraction(event);
-    });
+    handleBasketInteraction(event);});
   };
+}
 
+function initFormFieldMainEventListener(){
   let mainBasketForm = document.getElementById('main_basket_form');
-  let dialogBasketForm = document.getElementById('dialog_basket_form');
-
   if (mainBasketForm){
-    mainBasketForm.addEventListener('submit', function(event){
-      handleFormSubmit(event);
-    });
+    mainBasketForm.addEventListener('submit', function(event){handleFormSubmit(event);});
   }
+}
+
+function initFormFieldDialogEventListener(){
+  let dialogBasketForm = document.getElementById('dialog_basket_form');
   if (dialogBasketForm){
-    dialogBasketForm.addEventListener('submit', function(event){
-      handleFormSubmit(event);
-    })
+    dialogBasketForm.addEventListener('submit', function(event){handleFormSubmit(event);})
   }
 }
 
