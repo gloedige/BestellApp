@@ -4,26 +4,19 @@ document.addEventListener('click', closeDialog);
 
 function handleBasketInteraction(event){
   let dishId = '';
-  // hier ist die eigentliche Logik für increase, reduce und delete enthalten
-  // Finde den relevanten Button
   let button = event.target.closest('button');
   if(!button){
     return;
   }
-  // Finde den Container des Gerichts
+  
   let dishContainer = button.closest('.single_dish');
   let singleDishInBasketContainer = button.closest('.single_dish_basket');
-
   if (!dishContainer && !singleDishInBasketContainer){
     return;
   }
   // Hole ID des Gerichts aus dem Datenattribut
-  if (dishContainer && singleDishInBasketContainer==null){
-    dishId = dishContainer.dataset.dishId;
-  }
-  if (dishContainer==null && singleDishInBasketContainer){
-    dishId = singleDishInBasketContainer.dataset.dishId;
-  }
+  dishId = getIdFromDataset(dishContainer, singleDishInBasketContainer);
+ 
 
   // Implementierung der Logik basierend auf der Klasse des Buttons
   if (button.classList.contains('add_dish_button')){    
@@ -45,6 +38,17 @@ function handleBasketInteraction(event){
   // }
 
   renderBasketItems();
+}
+
+function getIdFromDataset(dishContainer, singleDishInBasketContainer){
+  let dishId = '';
+  if (dishContainer && singleDishInBasketContainer==null){
+    dishId = dishContainer.dataset.dishId;
+  }
+  if (dishContainer==null && singleDishInBasketContainer){
+    dishId = singleDishInBasketContainer.dataset.dishId;
+  }
+  return dishId;
 }
 
 function handleFormSubmit(event){
