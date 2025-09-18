@@ -37,7 +37,7 @@ function handleBasketInteraction(event){
   if (button.classList.contains('reduce_quantity_button')){
     reduceQuantity(dishId);
   }
-  if (button.classList.contains('delete_dish')){
+  if (button.classList.contains('delete_dish_button')){
     deleteFromBasket(dishId);
   }
   // if (button.classList.contains('order_button')){
