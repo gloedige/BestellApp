@@ -1,6 +1,6 @@
 let dishesInBasketArr = [];
 let confirmationState = false;
-document.addEventListener('click', closeDialog);
+
 
 function handleBasketInteraction(event){
   let button = getButtonFromEvent(event);
@@ -271,6 +271,8 @@ function initDOMContentEventListener(){
 
   initFormFieldMainEventListener();
   initFormFieldDialogEventListener();
+
+  closeDialog();
 }
   
   
@@ -317,14 +319,25 @@ function openDialog(){
   dialogRef.showModal();
 }
 
-function closeDialog(event){
+function closeDialog(){
     let dialogRef = document.getElementById('basket_dialog');
-    if(event.target.contains(dialogRef) || event.target.id==""){
-        dialogRef.close();
-    }
-    else{
-        return;
-    }
+    dialogRef.addEventListener('click', ((event) => {
+      let rect = event.target.getBoundingClientRect();if (rect.left > event.clientX ||
+          rect.right < event.clientX ||
+          rect.top > event.clientY ||
+          rect.bottom < event.clientY
+      ) {
+          dialogRef.close();
+      }
+    })
+  );
+    // if(event.target.contains(dialogRef) || event.target.id==""){
+    // if(event.target.id==""){
+    //     dialogRef.close();
+    // }
+    // else{
+    //     return;
+    // }
 }
 
 document.addEventListener('DOMContentLoaded', initDOMContentEventListener);
