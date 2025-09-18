@@ -46,7 +46,6 @@ function handleFormSubmit(event){
   event.preventDefault();
 
   let submittedForm = event.target;
-  
   if (!submittedForm){
     return;
   }
@@ -56,7 +55,6 @@ function handleFormSubmit(event){
     confirmOrder();
     disableOrderButton();
   }
-
   renderBasketItems();
 }
 
@@ -76,9 +74,22 @@ function renderAllDishesToMenu(){
 }
 
 function renderBasketItems(){
-  let basketHtml = '';
-  let invoiceHtml = '';
+  let basketHtml = renderContainerDishesInBasket();
+  let invoiceHtml = renderInvoiceOfBasket(subtotal=calcTotalSum()[0], total=calcTotalSum()[1]);
 
+  let mainBasketContainer = document.getElementById('dishes_in_basket');
+  let mainBasketInvoiceContainer = document.getElementById('dishes_invoice');
+  if (mainBasketContainer){mainBasketContainer.innerHTML = basketHtml;}
+  if (mainBasketInvoiceContainer){mainBasketInvoiceContainer.innerHTML = invoiceHtml;}
+
+  let dialogBasketContainer = document.getElementById('dialog_dishes_in_basket');
+  let dialogBasketInvoiceContainer = document.getElementById('dialog_dishes_invoice');
+  if (dialogBasketContainer){dialogBasketContainer.innerHTML = basketHtml;}
+  if (dialogBasketInvoiceContainer){dialogBasketInvoiceContainer.innerHTML = invoiceHtml;}
+}
+
+function renderContainerDishesInBasket(){
+  let basketHtml = '';
   if(dishesInBasketArr.length == 0 && confirmationState == false){
     basketHtml = `<p class="confirmation_message" id="basket_empty">Ihr Warenkorb ist leer.</p>`;
     document.getElementById('dishes_in_basket').classList.add("confirmation_message");
@@ -90,29 +101,7 @@ function renderBasketItems(){
     basketHtml = dishesInBasketArr.map(dish => renderSingleDishInBasket(dish)).join('');
     document.getElementById('dishes_in_basket').classList.remove("confirmation_message");
   }
-
-  let subtotal = calcTotalSum()[0];
-  let total = calcTotalSum()[1];
-  invoiceHtml = renderInvoiceOfBasket(subtotal, total);
-
-  let mainBasketContainer = document.getElementById('dishes_in_basket');
-  let mainBasketInvoiceContainer = document.getElementById('dishes_invoice');
-  if (mainBasketContainer){
-    mainBasketContainer.innerHTML = basketHtml;
-  }
-  if (mainBasketInvoiceContainer){
-    mainBasketInvoiceContainer.innerHTML = invoiceHtml;
-  }
-
-  let dialogBasketContainer = document.getElementById('dialog_dishes_in_basket');
-  let dialogBasketInvoiceContainer = document.getElementById('dialog_dishes_invoice');
-  if (dialogBasketContainer){
-    dialogBasketContainer.innerHTML = basketHtml;
-  }
-  if (dialogBasketInvoiceContainer){
-    dialogBasketInvoiceContainer.innerHTML = invoiceHtml;
-  }
-
+  return basketHtml;
 }
 
 function initFormField(){
