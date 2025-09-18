@@ -32,22 +32,44 @@
     background-color: white;
     border: none;
 }
-.remove_circle_icon.d_none{
+.remove_icon.d_none{
     display: none;
 }
-.remove_button:hover .remove_icon{
-    display: none;
+.remove_icon{
+    position: absolute;
+    height: 30px;
 }
-.remove_button:hover .remove_circle_icon{
+.reduce_quantity_button{
+    align-items: center;
+}
+.reduce_quantity_button:hover .circle_icon{
     display: block;
 }
-.add_circle_icon.d_none{
+.add_icon.d_none{
     display: none;
 }
-.add_button:hover .add_icon{
-    display: none;
+.add_icon{
+    position: absolute;
+    height: 30px;
 }
-.add_button:hover .add_circle_icon{
+.increase_quantity_button{
+    align-items: center;
+}
+.increase_quantity_button:hover .circle_icon{
+    display: block;
+}
+.circle_icon.d_none{
+    display: none;
+    height: 50px;
+}
+.garbage_icon{
+    position: absolute;
+    height: 30px;
+}
+.delete_dish_button{
+    align-items: center;
+}
+.delete_dish_button:hover .circle_icon{
     display: block;
 }
 .quantity_of_single_dish{

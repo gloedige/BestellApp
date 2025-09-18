@@ -20,16 +20,17 @@ function renderSingleDishInBasket(singleDishObj){
             <div class="container_price_and_quantity">
                 <button class="button_basket reduce_quantity_button">
                     <img src="./assets/icons/remove_60dp_FF8000.png" alt="remove dish" class="remove_icon">
-                    <img src="./assets/icons/remove_circle_60dp_FF8000.png" alt="remove dish" class="remove_circle_icon d_none">
+                    <img src="./assets/icons/circle_40dp_FF8000.svg" alt="highlighted_button" class="circle_icon d_none">
                 </button>
                 <p id="quantity_of_single_dish:_${singleDishObj.name}" class="quantity_of_single_dish">${singleDishObj.quantity}</p>
                 <button class="button_basket increase_quantity_button">
                     <img src="./assets/icons/add_60dp_FF8000.png" alt="add dish" class="add_icon">
-                    <img src="./assets/icons/add_circle_60dp_FF8000.png" alt="add dish" class="add_circle_icon d_none">
+                    <img src="./assets/icons/circle_40dp_FF8000.svg" alt="highlighted_button" class="circle_icon d_none">
                 </button>
                 <p id="total_price_of_single_dish:_${singleDishObj.name}" class="total_price_of_single_dish">${(singleDishObj.quantity * singleDishObj.price).toFixed(2)}€</p>
-                <button class="button_basket delete_dish">
-                    <img src="./assets/icons/delete_60dp_FF8000.png" alt="delete single dish">
+                <button class="button_basket delete_dish_button">
+                    <img src="./assets/icons/delete_60dp_FF8000.png" alt="delete single dish" class="garbage_icon">
+                    <img src="./assets/icons/circle_40dp_FF8000.svg" alt="highlighted_button" class="circle_icon d_none">
                 </button>
               </div>
           </div>
