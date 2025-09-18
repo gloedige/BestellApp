@@ -97,15 +97,6 @@ footer{
 .light_orange_bg{
     background-color: rgb(255,128,0,0.2);
 }
-.confirmation_container{
-    min-height: 200px;
-    display: flex;
-    align-items: center;
-}
-.confirmation_message{
-    text-align: center;
-    font-size: 24px;
-}
 .open_basket_button{
     display: flex;
     justify-content: center;
