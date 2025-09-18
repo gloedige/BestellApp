@@ -90,11 +90,12 @@ function renderBasketItems(){
 function renderContainerDishesInBasket(){
   let basketHtml = '';
   if(dishesInBasketArr.length == 0 && confirmationState == false){
-    basketHtml = `<p class="confirmation_message" id="basket_empty">Ihr Warenkorb ist leer.</p>`;
+    basketHtml = renderEmptyBasketInfo();
     document.getElementById('dishes_in_basket').classList.add("confirmation_message");
   }
   else if (dishesInBasketArr.length == 0 && confirmationState == true){
     basketHtml = renderOrderConfirmation();
+    document.getElementById('dishes_in_basket').classList.add("confirmation_message");
   }
   else{
     basketHtml = dishesInBasketArr.map(dish => renderSingleDishInBasket(dish)).join('');

@@ -61,6 +61,12 @@ function renderSubmitOrderButton(id){
           </form>
          `
 }
+         
+function renderEmptyBasketInfo(){
+  return `
+          <p class="confirmation_message" id="basket_empty">Ihr Warenkorb ist leer.</p>
+         `
+}
 
 function renderOrderConfirmation(){
   return `
