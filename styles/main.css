@@ -139,7 +139,7 @@ dialog::backdrop{
     transition: all 300ms ease-in-out;
 }
 .resp_menu_closed{
-    transform: translateY(-160%);
+    transform: translateY(-200%);
 }
 
 @media(max-width: 1050px){
