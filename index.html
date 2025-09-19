@@ -18,7 +18,7 @@
         <header>
             <div class="container_header">
                 <img src="./assets/imgs/Bestell App- Logo.svg" alt="logo" class="logo_img">
-                <button class="burger_button">
+                <button class="burger_button" onclick="toggleRespMenu()">
                     <img src="./assets/icons/burger_menu_50dp.png" alt="menu_icon">
                 </button>
             </div>
@@ -61,6 +61,11 @@
                     <div class="confirm_order" id="confirm_order"></div>
                 </div>
             </section>
+            <div id="resp_menu" class="resp_menu_box resp_menu_closed">
+            <a href="#">Dummy Start</a>
+            <a href="#">Dummy Impressum</a>
+            <a href="#">Dummy Kontakt</a>
+        </div>
             <button class="open_basket_button" id="open_basket_button" onclick="openDialog()">Warenkorb</button>
           
         </main>
