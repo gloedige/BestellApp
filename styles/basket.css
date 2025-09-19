@@ -122,3 +122,28 @@
     display: flex;
     align-items: center;
 }
+.open_basket_container{
+    display: flex;
+    flex-direction: row;
+    position: sticky;
+    bottom: 0px;
+}
+.open_basket_button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    height: 64px;
+    background-color: rgb(241, 241, 241);
+    flex: 1;
+    border: none;
+}
+.open_basket_button:hover{
+    background-color: rgb(242, 124, 27);
+}
+.shopping_cart{
+    height: 64px;
+    width: 64px;
+    padding: 8px;
+    background-color: rgb(241, 241, 241);
+}
