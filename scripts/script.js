@@ -12,7 +12,6 @@ function handleBasketInteraction(event){
   if (containerArr.length == 0){return;}
 
   let dishId = getIdFromDataset(dishContainer=containerArr[0], singleDishInBasketContainer=containerArr[1]);
-  // Implementierung der Logik basierend auf der Klasse des Buttons
   if (button.classList.contains('add_dish_button')){addToBasket(dishId);
                                                     enableOrderButton();
                                                     increaseQuantity(dishId);}
@@ -228,7 +227,6 @@ function getIndexOfDishesInBasketArr(singleDishName){
 
 function getDishObjectByDishName(singleDishName){
   let singleDishObj = allDishes.find(dish => dish.name === singleDishName);
-  // make a deep copy of singleDishObj to keep object allDishes untouched
   let singleDishObjDeepCopy = JSON.parse(JSON.stringify(singleDishObj));
   return singleDishObjDeepCopy
 }

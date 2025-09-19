@@ -1,4 +1,4 @@
-function renderSingleDishSection(dishId, singleDishObj){ // dishId is name of dish
+function renderSingleDishSection(dishId, singleDishObj){
   return `
           <div class="single_dish" id="${dishId}" data-dish-id="${dishId}">
             <div class="dish_attributes">
