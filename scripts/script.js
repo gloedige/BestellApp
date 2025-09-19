@@ -91,17 +91,39 @@ function renderContainerDishesInBasket(){
   let basketHtml = '';
   if(dishesInBasketArr.length == 0 && confirmationState == false){
     basketHtml = renderEmptyBasketInfo();
-    document.getElementById('dishes_in_basket').classList.add("confirmation_message");
+    addClassConfirmationMessage();
   }
   else if (dishesInBasketArr.length == 0 && confirmationState == true){
     basketHtml = renderOrderConfirmation();
-    document.getElementById('dishes_in_basket').classList.add("confirmation_message");
+    addClassConfirmationMessage();
   }
   else{
     basketHtml = dishesInBasketArr.map(dish => renderSingleDishInBasket(dish)).join('');
-    document.getElementById('dishes_in_basket').classList.remove("confirmation_message");
+    removeClassConfirmationMessage();
   }
   return basketHtml;
+}
+
+function addClassConfirmationMessage(){
+  let dialogBasketContainer = document.getElementById('dishes_in_basket');
+  if (dialogBasketContainer){
+    dialogBasketContainer.classList.add("confirmation_message");
+  }
+  let dialogBasketInvoiceContainer = document.getElementById('dialog_dishes_in_basket');
+  if (dialogBasketInvoiceContainer){
+    dialogBasketInvoiceContainer.classList.add("confirmation_message");
+  }
+}
+
+function removeClassConfirmationMessage(){
+  let dialogBasketContainer = document.getElementById('dishes_in_basket');
+  if (dialogBasketContainer){
+    dialogBasketContainer.classList.remove("confirmation_message");
+  }
+  let dialogBasketInvoiceContainer = document.getElementById('dialog_dishes_in_basket');
+  if (dialogBasketInvoiceContainer){
+    dialogBasketInvoiceContainer.classList.remove("confirmation_message");
+  }
 }
 
 function initFormField(){
@@ -260,9 +282,9 @@ function initDOMContentEventListener(){
   confirmationState = false;
   getBasketFromLocalStorage();
   renderAllDishesToMenu();
-  renderBasketItems();
   initDialog();
   initFormField();
+  renderBasketItems();
   initDishMenuEventListener();
   initBasketMainEventListener();
   initBasketDialogEventListener();
