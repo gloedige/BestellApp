@@ -71,7 +71,7 @@ function renderEmptyBasketInfo(){
 function renderOrderConfirmation(){
   return `
           <div class="confirmation_container" id="confirmation_container">
-            <p class="confirmation_message">Vielen Dank für ihre Bestellung!</p>
+            <p class="confirmation_message">Vielen Dank für Ihre Bestellung!</p>
           </div>
          `
 }
