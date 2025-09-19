@@ -188,7 +188,7 @@ function checkMiniumValueOfQuantity(singleDisheIndex){
 function isDishExistentInBasket(singleDishName){
   let singleDishesInBasketArr = dishesInBasketArr.find(dish => dish.name === singleDishName);
   
-  if(singleDishesInBasketArr){
+  if (singleDishesInBasketArr){
     return true
   }
   else{
@@ -211,16 +211,15 @@ function getDishObjectByDishName(singleDishName){
 function calcTotalSum(){
   let subtotal = 0;
   let total = 0;
-  if(checkIsBasketEmpty()){
+  if (checkIsBasketEmpty()) {
     return[0,0];
   }
-  else{  
-  let subtotalSum = dishesInBasketArr.reduce((sum, dish) => {
+  else {  
+    subtotal = dishesInBasketArr.reduce((sum, dish) => {
     return sum + (parseFloat(dish.price) * parseFloat(dish.quantity));
   }, 0);
-  subtotal = subtotalSum;
-  total = subtotal + deliveryCosts;
 
+  total = subtotal + deliveryCosts;
   return [subtotal, total];
   }
 }
@@ -264,18 +263,14 @@ function initDOMContentEventListener(){
   renderBasketItems();
   initDialog();
   initFormField();
-
   initDishMenuEventListener();
   initBasketMainEventListener();
   initBasketDialogEventListener();
-
   initFormFieldMainEventListener();
   initFormFieldDialogEventListener();
-
   closeDialog();
 }
-  
-  
+
 function initDishMenuEventListener(){
   document.getElementById('all_dishes').addEventListener('click', function(event){
   handleBasketInteraction(event);})
