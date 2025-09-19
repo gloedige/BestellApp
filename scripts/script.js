@@ -287,10 +287,11 @@ function initBasketMainEventListener(){
 }
 
 function initBasketDialogEventListener(){
-  let dialogBasketContainer = document.getElementById('basket_dialog');
+  let dialogBasketContainer = document.getElementById('dialog_dishes_in_basket');
   if (dialogBasketContainer){
     dialogBasketContainer.addEventListener('click', function(event){
-    handleBasketInteraction(event);});
+      event.stopPropagation();
+      handleBasketInteraction(event);});
   };
 }
 
@@ -304,8 +305,10 @@ function initFormFieldMainEventListener(){
 function initFormFieldDialogEventListener(){
   let dialogBasketForm = document.getElementById('dialog_basket_form');
   if (dialogBasketForm){
-    dialogBasketForm.addEventListener('submit', function(event){handleFormSubmit(event);})
-  }
+    dialogBasketForm.addEventListener('submit', function(event){
+      event.stopPropagation();
+      handleFormSubmit(event);});
+  };
 }
 
 function initDialog(){
@@ -323,21 +326,12 @@ function closeDialog(){
     let dialogRef = document.getElementById('basket_dialog');
     dialogRef.addEventListener('click', ((event) => {
       let rect = event.target.getBoundingClientRect();if (rect.left > event.clientX ||
-          rect.right < event.clientX ||
-          rect.top > event.clientY ||
-          rect.bottom < event.clientY
-      ) {
-          dialogRef.close();
-      }
-    })
-  );
-    // if(event.target.contains(dialogRef) || event.target.id==""){
-    // if(event.target.id==""){
-    //     dialogRef.close();
-    // }
-    // else{
-    //     return;
-    // }
+                                                          rect.right < event.clientX ||
+                                                          rect.top > event.clientY ||
+                                                          rect.bottom < event.clientY)
+                                                          {dialogRef.close();}
+      })
+    );
 }
 
 document.addEventListener('DOMContentLoaded', initDOMContentEventListener);
