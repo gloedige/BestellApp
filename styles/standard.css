@@ -26,6 +26,6 @@ a{
 
 @font-face {
     font-family: inter;
-    src: url("/assets/fonts/Inter_24pt-ExtraLight.ttf");
+    src: url("/BestellApp/assets/fonts/Inter_24pt-ExtraLight.ttf");
     font-display: fallback;
 }
