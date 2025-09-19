@@ -12,7 +12,8 @@
 
     
 </head>
-<body onload="init()">
+<body>
+    <dialog id="basket_dialog"></dialog>    
     <div class="wrapper">
         <header>
             <div class="container_header">
@@ -60,6 +61,7 @@
                     <div class="confirm_order" id="confirm_order"></div>
                 </div>
             </section>
+            <button class="open_basket_button" id="open_basket_button" onclick="openDialog()">Warenkorb</button>
           
         </main>
         <footer>
@@ -70,9 +72,9 @@
         </footer>
     </div>
     
-</body>
     <script src="./scripts/db.js"></script>
     <script src="./scripts/template.js"></script>
     <script src="./scripts/script.js"></script>
+</body>
 
 </html>
