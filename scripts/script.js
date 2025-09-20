@@ -76,12 +76,16 @@ function renderAllDishesToMenu(){
 
 function renderBasketItems(){
   let basketHtml = renderContainerDishesInBasket();
+  let basketRespHtml = renderOpenBasketDialogButton(calcTotalQuantity());
   let invoiceHtml = renderInvoiceOfBasket(subtotal=calcTotalSum()[0], total=calcTotalSum()[1]);
 
   let mainBasketContainer = document.getElementById('dishes_in_basket');
   let mainBasketInvoiceContainer = document.getElementById('dishes_invoice');
   if (mainBasketContainer){mainBasketContainer.innerHTML = basketHtml;}
   if (mainBasketInvoiceContainer){mainBasketInvoiceContainer.innerHTML = invoiceHtml;}
+
+  let openBasketContainer = document.getElementById('open_basket_container');
+  if (openBasketContainer){openBasketContainer.innerHTML = basketRespHtml;}
 
   let dialogBasketContainer = document.getElementById('dialog_dishes_in_basket');
   let dialogBasketInvoiceContainer = document.getElementById('dialog_dishes_invoice');
@@ -244,6 +248,19 @@ function calcTotalSum(){
 
   total = subtotal + deliveryCosts;
   return [subtotal, total];
+  }
+}
+
+function calcTotalQuantity(){
+  let totalQuantity = 0;
+  if (checkIsBasketEmpty()) {
+    return 0;
+  }
+  else {  
+    totalQuantity = dishesInBasketArr.reduce((sum, dish) => {
+    return sum + (parseInt(dish.quantity));
+    }, 0);
+  return totalQuantity;
   }
 }
 
