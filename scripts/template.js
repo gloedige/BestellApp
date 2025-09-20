@@ -88,3 +88,11 @@ function renderDialog(){
           </div>
          `
 }
+
+function renderOpenBasketDialogButton(totalQuantity){
+  return `
+          <button class="open_basket_button" onclick="openDialog()">Warenkorb</button>
+          <img src="./assets/icons/shopping_cart_50dp_FF8000.svg" alt="number_of_items" class="shopping_cart">
+          <h4 class="sum_quantity" id="sum_quantity">${totalQuantity}</h4>
+         `
+}
