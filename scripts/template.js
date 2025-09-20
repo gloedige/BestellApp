@@ -79,7 +79,12 @@ function renderOrderConfirmation(){
 function renderDialog(){
   return `
           <div class="container_dialog">
-            <h3 class="basket_headline">Warenkorb</h3>
+            <div class="dialog_headline_container">
+              <h3 class="basket_headline">Warenkorb</h3>
+              <button class="close_basket_dialog_button">
+                  <img src="./assets/icons/close_button_50dp_000000.png" alt="close_basket">
+              </button>
+            </div>
             <div class="dividing_line"></div>
             <div class="dishes_in_basket" id="dialog_dishes_in_basket"></div>
             <div class="dividing_line"></div>
