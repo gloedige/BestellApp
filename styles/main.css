@@ -137,7 +137,7 @@ dialog::backdrop{
     }
 }
 @media(min-width: 601px){
-    .open_basket_button{
+    .open_basket_container{
         display: none;
     }
     dialog{
