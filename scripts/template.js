@@ -81,7 +81,7 @@ function renderDialog(){
           <div class="container_dialog">
             <div class="dialog_headline_container">
               <h3 class="basket_headline">Warenkorb</h3>
-              <button class="close_basket_dialog_button">
+              <button class="close_basket_dialog_button" onclick="closeDialogByButton()">
                   <img src="./assets/icons/close_button_50dp_000000.png" alt="close_basket">
               </button>
             </div>

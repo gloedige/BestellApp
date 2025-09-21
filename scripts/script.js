@@ -369,4 +369,9 @@ function closeDialog(){
     );
 }
 
+function closeDialogByButton(){
+  let dialogRef = document.getElementById('basket_dialog');
+  dialogRef.close(); 
+}
+
 document.addEventListener('DOMContentLoaded', initDOMContentEventListener);
