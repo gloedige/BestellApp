@@ -26,9 +26,15 @@
     background-color: white;
     border: none;
     height: 30px;
+    width: 30px;
     position: absolute;
     right: 0px;
     display: flex;
+    justify-content: center;
+}
+.close_basket_dialog_button:hover{
+    background-color: rgb(242, 124, 27);
+    border-radius: 5px;
 }
 .dividing_line{
     height: 2px;
