@@ -75,25 +75,16 @@ function renderAllDishesToMenu(){
 }
 
 function renderBasketItems(){
-  let basketHtml = renderContainerDishesInBasket();
-  let basketRespHtml = renderOpenBasketDialogButton(calcTotalQuantity());
+  let basketHtml = getTemplateStringContainerDishesInBasket();
+  let openBasketButtonHtml = renderOpenBasketDialogButton(calcTotalQuantity());
   let invoiceHtml = renderInvoiceOfBasket(subtotal=calcTotalSum()[0], total=calcTotalSum()[1]);
 
-  let mainBasketContainer = document.getElementById('dishes_in_basket');
-  let mainBasketInvoiceContainer = document.getElementById('dishes_invoice');
-  if (mainBasketContainer){mainBasketContainer.innerHTML = basketHtml;}
-  if (mainBasketInvoiceContainer){mainBasketInvoiceContainer.innerHTML = invoiceHtml;}
-
-  let openBasketContainer = document.getElementById('open_basket_container');
-  if (openBasketContainer){openBasketContainer.innerHTML = basketRespHtml;}
-
-  let dialogBasketContainer = document.getElementById('dialog_dishes_in_basket');
-  let dialogBasketInvoiceContainer = document.getElementById('dialog_dishes_invoice');
-  if (dialogBasketContainer){dialogBasketContainer.innerHTML = basketHtml;}
-  if (dialogBasketInvoiceContainer){dialogBasketInvoiceContainer.innerHTML = invoiceHtml;}
+  setTemplateToMainBasketContainer(basketHtml, invoiceHtml);
+  setTemplateToOpenBasketButton(openBasketButtonHtml);
+  setTemplateToDialogBasketContainer(basketHtml, invoiceHtml);
 }
 
-function renderContainerDishesInBasket(){
+function getTemplateStringContainerDishesInBasket(){
   let basketHtml = '';
   if(dishesInBasketArr.length == 0 && confirmationState == false){
     basketHtml = renderEmptyBasketInfo();
@@ -108,6 +99,35 @@ function renderContainerDishesInBasket(){
     removeClassConfirmationMessage();
   }
   return basketHtml;
+}
+
+function setTemplateToMainBasketContainer(basketHtml, invoiceHtml){
+  let mainBasketContainer = document.getElementById('dishes_in_basket');
+  let mainBasketInvoiceContainer = document.getElementById('dishes_invoice');
+  if (mainBasketContainer){
+    mainBasketContainer.innerHTML = basketHtml;
+  }
+  if (mainBasketInvoiceContainer){
+    mainBasketInvoiceContainer.innerHTML = invoiceHtml;
+  }
+}
+
+function setTemplateToOpenBasketButton(openBasketButtonHtml){
+  let openBasketContainer = document.getElementById('open_basket_container');
+  if (openBasketContainer){
+    openBasketContainer.innerHTML = openBasketButtonHtml;
+  }
+}
+
+function setTemplateToDialogBasketContainer(basketHtml, invoiceHtml){
+  let dialogBasketContainer = document.getElementById('dialog_dishes_in_basket');
+  let dialogBasketInvoiceContainer = document.getElementById('dialog_dishes_invoice');
+  if (dialogBasketContainer){
+    dialogBasketContainer.innerHTML = basketHtml;
+  }
+  if (dialogBasketInvoiceContainer){
+    dialogBasketInvoiceContainer.innerHTML = invoiceHtml;
+  }
 }
 
 function addClassConfirmationMessage(){
