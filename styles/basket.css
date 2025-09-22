@@ -12,8 +12,29 @@
 .basket_headline{
     display: flex;
     justify-content: center;
-    padding: 16px;
     font-size: 24px;
+    flex: 1;
+    position: relative;
+}
+.dialog_headline_container{
+    display: flex;
+    position: relative;
+    justify-content: center;
+    padding: 16px;
+}
+.close_basket_dialog_button{
+    background-color: white;
+    border: none;
+    height: 30px;
+    width: 30px;
+    position: absolute;
+    right: 0px;
+    display: flex;
+    justify-content: center;
+}
+.close_basket_dialog_button:hover{
+    background-color: rgb(242, 124, 27);
+    border-radius: 5px;
 }
 .dividing_line{
     height: 2px;
@@ -121,4 +142,45 @@
     justify-content: center;
     display: flex;
     align-items: center;
+}
+.open_basket_container{
+    display: flex;
+    flex-direction: row;
+    position: sticky;
+    bottom: 0px;
+}
+.open_basket_button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    height: 64px;
+    background-color: rgb(241, 241, 241);
+    flex: 1;
+    border: none;
+}
+.open_basket_button:hover{
+    background-color: rgb(242, 124, 27);
+}
+.shopping_cart{
+    height: 64px;
+    width: 64px;
+    padding: 8px;
+    background-color: rgb(241, 241, 241);
+    position: relative;
+}
+.sum_quantity{
+    color: white;
+    font-weight: 600;
+    display: flex;
+    background-color: rgb(0, 0, 0);
+    height: 20px;
+    width: 20px;
+    border-radius: 10px;
+    /* border: 2px solid #FF8000; */
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    right: 8px;
+    top: 5px;
 }

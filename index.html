@@ -18,8 +18,13 @@
         <header>
             <div class="container_header">
                 <img src="./assets/imgs/Bestell App- Logo.svg" alt="logo" class="logo_img">
-                <button class="burger_button">
+                <button class="burger_button" onclick="toggleRespMenu()">
                     <img src="./assets/icons/burger_menu_50dp.png" alt="menu_icon">
+                     <div id="resp_menu" class="resp_menu_box resp_menu_closed">
+                        <a href="#">Menupunkt 1</a>
+                        <a href="#">Menupunkt 2</a>
+                        <a href="#">Menupunkt 3</a>
+                    </div>
                 </button>
             </div>
         </header>
@@ -36,7 +41,6 @@
                 <div class="container_dish_group">
                     <img src="./assets/icons/arrow_right_60dp_orange.png" alt="position of menu" class="arrow_sign">
                     <p>Hauptgerichte</p>
-                    <p>Beilagen</p>
                 </div>
                 <div class="second_img_container">
                     <img src="./assets/imgs/fried_dish_1280.jpg" alt="fried_asian_food" class="main_img">
@@ -61,7 +65,8 @@
                     <div class="confirm_order" id="confirm_order"></div>
                 </div>
             </section>
-            <button class="open_basket_button" id="open_basket_button" onclick="openDialog()">Warenkorb</button>
+           
+            <div class="open_basket_container" id="open_basket_container"></div>
           
         </main>
         <footer>

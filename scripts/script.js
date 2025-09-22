@@ -1,6 +1,9 @@
 let dishesInBasketArr = [];
 let confirmationState = false;
 
+function toggleRespMenu(){
+  document.getElementById('resp_menu').classList.toggle('resp_menu_closed');
+}
 
 function handleBasketInteraction(event){
   let button = getButtonFromEvent(event);
@@ -9,7 +12,6 @@ function handleBasketInteraction(event){
   if (containerArr.length == 0){return;}
 
   let dishId = getIdFromDataset(dishContainer=containerArr[0], singleDishInBasketContainer=containerArr[1]);
-  // Implementierung der Logik basierend auf der Klasse des Buttons
   if (button.classList.contains('add_dish_button')){addToBasket(dishId);
                                                     enableOrderButton();
                                                     increaseQuantity(dishId);}
@@ -73,21 +75,16 @@ function renderAllDishesToMenu(){
 }
 
 function renderBasketItems(){
-  let basketHtml = renderContainerDishesInBasket();
+  let basketHtml = getTemplateStringContainerDishesInBasket();
+  let openBasketButtonHtml = renderOpenBasketDialogButton(calcTotalQuantity());
   let invoiceHtml = renderInvoiceOfBasket(subtotal=calcTotalSum()[0], total=calcTotalSum()[1]);
 
-  let mainBasketContainer = document.getElementById('dishes_in_basket');
-  let mainBasketInvoiceContainer = document.getElementById('dishes_invoice');
-  if (mainBasketContainer){mainBasketContainer.innerHTML = basketHtml;}
-  if (mainBasketInvoiceContainer){mainBasketInvoiceContainer.innerHTML = invoiceHtml;}
-
-  let dialogBasketContainer = document.getElementById('dialog_dishes_in_basket');
-  let dialogBasketInvoiceContainer = document.getElementById('dialog_dishes_invoice');
-  if (dialogBasketContainer){dialogBasketContainer.innerHTML = basketHtml;}
-  if (dialogBasketInvoiceContainer){dialogBasketInvoiceContainer.innerHTML = invoiceHtml;}
+  setTemplateToMainBasketContainer(basketHtml, invoiceHtml);
+  setTemplateToOpenBasketButton(openBasketButtonHtml);
+  setTemplateToDialogBasketContainer(basketHtml, invoiceHtml);
 }
 
-function renderContainerDishesInBasket(){
+function getTemplateStringContainerDishesInBasket(){
   let basketHtml = '';
   if(dishesInBasketArr.length == 0 && confirmationState == false){
     basketHtml = renderEmptyBasketInfo();
@@ -102,6 +99,35 @@ function renderContainerDishesInBasket(){
     removeClassConfirmationMessage();
   }
   return basketHtml;
+}
+
+function setTemplateToMainBasketContainer(basketHtml, invoiceHtml){
+  let mainBasketContainer = document.getElementById('dishes_in_basket');
+  let mainBasketInvoiceContainer = document.getElementById('dishes_invoice');
+  if (mainBasketContainer){
+    mainBasketContainer.innerHTML = basketHtml;
+  }
+  if (mainBasketInvoiceContainer){
+    mainBasketInvoiceContainer.innerHTML = invoiceHtml;
+  }
+}
+
+function setTemplateToOpenBasketButton(openBasketButtonHtml){
+  let openBasketContainer = document.getElementById('open_basket_container');
+  if (openBasketContainer){
+    openBasketContainer.innerHTML = openBasketButtonHtml;
+  }
+}
+
+function setTemplateToDialogBasketContainer(basketHtml, invoiceHtml){
+  let dialogBasketContainer = document.getElementById('dialog_dishes_in_basket');
+  let dialogBasketInvoiceContainer = document.getElementById('dialog_dishes_invoice');
+  if (dialogBasketContainer){
+    dialogBasketContainer.innerHTML = basketHtml;
+  }
+  if (dialogBasketInvoiceContainer){
+    dialogBasketInvoiceContainer.innerHTML = invoiceHtml;
+  }
 }
 
 function addClassConfirmationMessage(){
@@ -225,7 +251,6 @@ function getIndexOfDishesInBasketArr(singleDishName){
 
 function getDishObjectByDishName(singleDishName){
   let singleDishObj = allDishes.find(dish => dish.name === singleDishName);
-  // make a deep copy of singleDishObj to keep object allDishes untouched
   let singleDishObjDeepCopy = JSON.parse(JSON.stringify(singleDishObj));
   return singleDishObjDeepCopy
 }
@@ -243,6 +268,19 @@ function calcTotalSum(){
 
   total = subtotal + deliveryCosts;
   return [subtotal, total];
+  }
+}
+
+function calcTotalQuantity(){
+  let totalQuantity = 0;
+  if (checkIsBasketEmpty()) {
+    return 0;
+  }
+  else {  
+    totalQuantity = dishesInBasketArr.reduce((sum, dish) => {
+    return sum + (parseInt(dish.quantity));
+    }, 0);
+  return totalQuantity;
   }
 }
 
@@ -349,6 +387,11 @@ function closeDialog(){
                                                           {dialogRef.close();}
       })
     );
+}
+
+function closeDialogByButton(){
+  let dialogRef = document.getElementById('basket_dialog');
+  dialogRef.close(); 
 }
 
 document.addEventListener('DOMContentLoaded', initDOMContentEventListener);
