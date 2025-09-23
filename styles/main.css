@@ -109,27 +109,6 @@ dialog{
 dialog::backdrop{
     background-color: rgba(0,0,0,0.6);
 }
-.resp_menu_box{
-    background-color: #FF8000;
-    font-size: large;
-    font-weight: 600;
-    padding: 16px;
-    gap: 8px;
-    display: flex;
-    flex-direction: column;
-    align-items: start;
-    border: 4px solid white;
-    width: 300px;
-    z-index: 1;
-    position: absolute;
-    top: 72px;
-    right: -8px;
-
-    transition: all 300ms ease-in-out;
-}
-.resp_menu_closed{
-    transform: translateY(-200%);
-}
 
 @media(max-width: 1050px){
     .name_container{

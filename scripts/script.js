@@ -1,10 +1,6 @@
 let dishesInBasketArr = [];
 let confirmationState = false;
 
-function toggleRespMenu(){
-  document.getElementById('resp_menu').classList.toggle('resp_menu_closed');
-}
-
 function handleBasketInteraction(event){
   let button = getButtonFromEvent(event);
   if(!button){return;}
