@@ -3,8 +3,11 @@ let confirmationState = false;
 
 function handleBasketInteraction(event){
   let button = getButtonFromEvent(event);
+  if (!button) {
+    return;
+  }
   let containerArr = getContainerFromEventBubbling(button);
-  if (!button && containerArr.length == 0){
+  if (containerArr.length == 0){
     return;
   }
   let dishId = getIdFromDataset(dishContainer=containerArr[0], singleDishInBasketContainer=containerArr[1]);
@@ -145,6 +148,7 @@ function setTemplateToDialogBasketContainer(basketHtml, invoiceHtml){
   let dialogBasketInvoiceContainer = document.getElementById('dialog_dishes_invoice');
   if (dialogBasketContainer){
     dialogBasketContainer.innerHTML = basketHtml;
+    dialogBasketContainer.classList.add("overflow_dishes_in_basket")
   }
   if (dialogBasketInvoiceContainer){
     dialogBasketInvoiceContainer.innerHTML = invoiceHtml;
