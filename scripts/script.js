@@ -3,17 +3,28 @@ let confirmationState = false;
 
 function handleBasketInteraction(event){
   let button = getButtonFromEvent(event);
-  if(!button){return;}
+  if (!button){
+    return;
+  }
   let containerArr = getContainerFromEventBubbling(button);
-  if (containerArr.length == 0){return;}
-
+  if (containerArr.length == 0){
+    return;
+  }
   let dishId = getIdFromDataset(dishContainer=containerArr[0], singleDishInBasketContainer=containerArr[1]);
-  if (button.classList.contains('add_dish_button')){addToBasket(dishId);
-                                                    enableOrderButton();
-                                                    increaseQuantity(dishId);}
-  if (button.classList.contains('increase_quantity_button')){increaseQuantity(dishId);}
-  if (button.classList.contains('reduce_quantity_button')){reduceQuantity(dishId);}
-  if (button.classList.contains('delete_dish_button')){deleteFromBasket(dishId);}
+  if (button.classList.contains('add_dish_button')){
+    addToBasket(dishId);
+    enableOrderButton();
+    increaseQuantity(dishId);
+  }
+  if (button.classList.contains('increase_quantity_button')){
+    increaseQuantity(dishId);
+  }
+  if (button.classList.contains('reduce_quantity_button')){
+    reduceQuantity(dishId);
+  }
+  if (button.classList.contains('delete_dish_button')){
+    deleteFromBasket(dishId);
+  }
   renderBasketItems();
 }
 
@@ -376,11 +387,13 @@ function openDialog(){
 function closeDialog(){
     let dialogRef = document.getElementById('basket_dialog');
     dialogRef.addEventListener('click', ((event) => {
-      let rect = event.target.getBoundingClientRect();if (rect.left > event.clientX ||
-                                                          rect.right < event.clientX ||
-                                                          rect.top > event.clientY ||
-                                                          rect.bottom < event.clientY)
-                                                          {dialogRef.close();}
+      let rect = event.target.getBoundingClientRect();
+      if (rect.left > event.clientX || 
+        rect.right < event.clientX || 
+        rect.top > event.clientY || 
+        rect.bottom < event.clientY){
+        dialogRef.close();
+      }
       })
     );
 }
