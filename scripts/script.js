@@ -1,23 +1,21 @@
 let dishesInBasketArr = [];
 let confirmationState = false;
 
-function toggleRespMenu(){
-  document.getElementById('resp_menu').classList.toggle('resp_menu_closed');
-}
-
 function handleBasketInteraction(event){
   let button = getButtonFromEvent(event);
-  if(!button){return;}
+  if (!button) {
+    return;
+  }
   let containerArr = getContainerFromEventBubbling(button);
-  if (containerArr.length == 0){return;}
-
+  if (containerArr.length == 0){
+    return;
+  }
   let dishId = getIdFromDataset(dishContainer=containerArr[0], singleDishInBasketContainer=containerArr[1]);
-  if (button.classList.contains('add_dish_button')){addToBasket(dishId);
-                                                    enableOrderButton();
-                                                    increaseQuantity(dishId);}
-  if (button.classList.contains('increase_quantity_button')){increaseQuantity(dishId);}
-  if (button.classList.contains('reduce_quantity_button')){reduceQuantity(dishId);}
-  if (button.classList.contains('delete_dish_button')){deleteFromBasket(dishId);}
+
+  checkButtonEventAdd(button, dishId);
+  checkButtonEventIncrease(button, dishId);
+  checkButtonEventReduce(button, dishId);
+  checkButtonEventDelete(button, dishId);
   renderBasketItems();
 }
 
@@ -41,6 +39,32 @@ function getIdFromDataset(dishContainer, singleDishInBasketContainer){
     dishId = singleDishInBasketContainer.dataset.dishId;
   }
   return dishId;
+}
+
+function checkButtonEventAdd(button, dishId){
+  if (button.classList.contains('add_dish_button')){
+    addToBasket(dishId);
+    enableOrderButton();
+    increaseQuantity(dishId);
+  }
+}
+
+function  checkButtonEventIncrease(button, dishId){
+   if (button.classList.contains('increase_quantity_button')){
+    increaseQuantity(dishId);
+  }
+}
+
+function checkButtonEventReduce(button, dishId){
+   if (button.classList.contains('reduce_quantity_button')){
+    reduceQuantity(dishId);
+  }
+}
+  
+function checkButtonEventDelete(button, dishId){
+   if (button.classList.contains('delete_dish_button')){
+    deleteFromBasket(dishId);
+  }
 }
 
 function handleFormSubmit(event){
@@ -124,6 +148,7 @@ function setTemplateToDialogBasketContainer(basketHtml, invoiceHtml){
   let dialogBasketInvoiceContainer = document.getElementById('dialog_dishes_invoice');
   if (dialogBasketContainer){
     dialogBasketContainer.innerHTML = basketHtml;
+    dialogBasketContainer.classList.add("overflow_dishes_in_basket")
   }
   if (dialogBasketInvoiceContainer){
     dialogBasketInvoiceContainer.innerHTML = invoiceHtml;
@@ -380,11 +405,13 @@ function openDialog(){
 function closeDialog(){
     let dialogRef = document.getElementById('basket_dialog');
     dialogRef.addEventListener('click', ((event) => {
-      let rect = event.target.getBoundingClientRect();if (rect.left > event.clientX ||
-                                                          rect.right < event.clientX ||
-                                                          rect.top > event.clientY ||
-                                                          rect.bottom < event.clientY)
-                                                          {dialogRef.close();}
+      let rect = event.target.getBoundingClientRect();
+      if (rect.left > event.clientX || 
+        rect.right < event.clientX || 
+        rect.top > event.clientY || 
+        rect.bottom < event.clientY){
+        dialogRef.close();
+      }
       })
     );
 }

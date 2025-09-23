@@ -105,6 +105,11 @@
     min-height: 200px;
     padding: 8px;
 }
+.overflow_dishes_in_basket{
+    position: relative;
+    max-height: 350px;
+    overflow-y: auto;
+}
 .dishname_basket{
     font-weight: 600;
     margin: 16px 0px;
