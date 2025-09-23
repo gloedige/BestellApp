@@ -3,28 +3,16 @@ let confirmationState = false;
 
 function handleBasketInteraction(event){
   let button = getButtonFromEvent(event);
-  if (!button){
-    return;
-  }
   let containerArr = getContainerFromEventBubbling(button);
-  if (containerArr.length == 0){
+  if (!button && containerArr.length == 0){
     return;
   }
   let dishId = getIdFromDataset(dishContainer=containerArr[0], singleDishInBasketContainer=containerArr[1]);
-  if (button.classList.contains('add_dish_button')){
-    addToBasket(dishId);
-    enableOrderButton();
-    increaseQuantity(dishId);
-  }
-  if (button.classList.contains('increase_quantity_button')){
-    increaseQuantity(dishId);
-  }
-  if (button.classList.contains('reduce_quantity_button')){
-    reduceQuantity(dishId);
-  }
-  if (button.classList.contains('delete_dish_button')){
-    deleteFromBasket(dishId);
-  }
+
+  checkButtonEventAdd(button, dishId);
+  checkButtonEventIncrease(button, dishId);
+  checkButtonEventReduce(button, dishId);
+  checkButtonEventDelete(button, dishId);
   renderBasketItems();
 }
 
@@ -48,6 +36,32 @@ function getIdFromDataset(dishContainer, singleDishInBasketContainer){
     dishId = singleDishInBasketContainer.dataset.dishId;
   }
   return dishId;
+}
+
+function checkButtonEventAdd(button, dishId){
+  if (button.classList.contains('add_dish_button')){
+    addToBasket(dishId);
+    enableOrderButton();
+    increaseQuantity(dishId);
+  }
+}
+
+function  checkButtonEventIncrease(button, dishId){
+   if (button.classList.contains('increase_quantity_button')){
+    increaseQuantity(dishId);
+  }
+}
+
+function checkButtonEventReduce(button, dishId){
+   if (button.classList.contains('reduce_quantity_button')){
+    reduceQuantity(dishId);
+  }
+}
+  
+function checkButtonEventDelete(button, dishId){
+   if (button.classList.contains('delete_dish_button')){
+    deleteFromBasket(dishId);
+  }
 }
 
 function handleFormSubmit(event){
